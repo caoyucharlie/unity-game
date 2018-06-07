@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://noobtuts.com/unity/2d-angry-birds-game_PREMIUM -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>noobtuts - Unity 2D Angry Birds Tutorial</title>
+  <meta charset="utf-8">
+  <!--max-scale makes sure that 450px images fit on vertical oriented phones too-->
+  <!--<meta name="viewport" content="width=device-width; initial-scale=0.8; maximum-scale=0.8">-->
+  <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+  <meta name="description" content="noobtuts.com - Talk to me like I&#39;m five!">
+  <meta name="keywords" content="noobtuts, gamedevelopment, tutorials, make a game">
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="http://noobtuts.com/assets/styles/styles.css">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-36008404-2', 'noobtuts.com');
+    ga('send', 'pageview');  
+  </script><style type="text/css"></style>
+</head>
+
+<body>
+  <header>
+    <h1><a href="http://noobtuts.com/"><img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/logo.png" alt="noobtuts"></a></h1>
+  </header><!-- vis2k: nav not working in older IE versions
+<nav class="menu">
+-->
+<div id="menu">
+  <ul>
+        <li><a href="http://noobtuts.com/">Tutorials</a></li>
+        <li><a href="http://noobtuts.com/articles">Articles</a></li>
+        <li><a href="http://noobtuts.com/premium">Premium</a></li>
+        <li><a href="http://noobtuts.com/about">About</a></li>
+      </ul>
+</div>
+<!-- vis2k: nav not working in older IE versions
+</nav>
+-->
+
+<section class="content">
+
+  <article>
+    <h1>Unity 2D Angry Birds Tutorial</h1>
+    <p><img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/unity_angrybirds.png" title="unity_angrybirds" alt="Unity 2D Angry Birds"></p>
+
+<h2>Foreword</h2>
+
+<p>Angry Birds was released in December 2009 and thanks to its highly addictive gameplay it soon became the most successful mobile game of all time.</p>
+
+<p>In this Tutorial we will implement a Angry Birds clone in Unity. The most complex part of the game is the physics system, but thanks to Unity we won't have to worry about that too much. Using Unity will make it so easy that we will only need about 100 lines of code!</p>
+
+<p>As usual, everything will be explained as easy as possible so everyone can understand it.</p>
+
+<p>Here is a preview of the final game:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/unity_angrybirds.gif" title="unity_angrybirds" alt="Unity Angry Birds"></p>
+
+<h2>Requirements</h2>
+
+<h3>Knowledge</h3>
+
+<p>Our Tutorial does not require any special skills. If you know your way around Unity and heard about <a href="http://noobtuts.com/unity/gameobjects-and-components">GameObjects</a>, <a href="http://noobtuts.com/unity/prefabs">Prefabs</a> and Transforms before, then you are ready to go.</p>
+
+<p>Feel free to read our easier <a href="http://noobtuts.com/unity">Unity Tutorials</a> like <a href="http://noobtuts.com/unity/2d-pong-game">Unity 2D Pong Game</a> to get used to the engine.</p>
+
+<h3>Unity Version</h3>
+
+<p>In this Tutorial we will use <strong>Unity 5.0.0f4</strong>. Newer versions should work fine as well, older versions may or may not work. The free version of Unity 5 now comes with all the engine features, which makes it the recommended version.</p>
+
+<h2>Project Setup</h2>
+
+<p>Let's get to it. We will start Unity and select <strong>New Project</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/new_project.png" title="new_project" alt="Unity New Project"></p>
+
+<p>We will name it <strong>angrybirds</strong>, select any location like <strong>C:\</strong>, select <strong>2D</strong> and click <strong>Create Project</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/project_wizard_create_2d.png" title="project_wizard_create_2d" alt="Unity Create new 2D Project"></p>
+
+<p>Afterwards we can select the <strong>Main Camera</strong> in the <strong>Hierarchy</strong> and then set the <strong>Background Color</strong> to a friendly blue tone <strong><em>(<font color="red">red=187</font>, <font color="green">green=238</font>, <font color="blue">blue=255</font>)</em></strong> and adjust the <strong>Size</strong> and the <strong>Position</strong> like shown in the following image:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/camera_properties.png" title="camera_properties" alt="Camera Properties"></p>
+
+<h2>The Ground</h2>
+
+<h3>The Ground Sprite</h3>
+
+<p>In order to prevent Copyright issues we can't use the original Angry Birds graphics in this Tutorial. Instead we will draw our own Sprites and make them look similar to the original game.</p>
+
+<p>Let's start by drawing the ground with our drawing tool of choice:</p>
+
+<ul>
+<li><a href="http://noobtuts.com/content/unity/2d-angry-birds-game_PREMIUM/ground.png">ground.png</a><br>
+<em>Note: right click on the link, select <strong>Save As...</strong>, navigate to the project's <strong>Assets</strong> folder and save it in a new <strong>Sprites</strong> folder.</em></li>
+</ul>
+
+<p>After saving it into our Project, we can select it in the <strong>Project Area</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ground_projectarea.png" title="ground_projectarea" alt="Ground in Project Area"></p>
+
+<p>And then modify the <strong>Import Settings</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ground_importsettings.png" title="ground_importsettings" alt="Ground Import Settings"><br>
+<em>Note: a <strong>Pixels to Unit</strong> value of <strong>16</strong> means that 16 x 16 pixels will fit into one unit in the game world. We will use this value for all our textures. We chose 16 because the bird will have a size of 16 x 16 pixels later on and we want it to have the size of 1 unit in the game world.</em></p>
+
+<p>Alright, now we can drag the ground image from the <strong>Project Area</strong> into the <strong>Scene</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ground_to_scene.png" title="ground_to_scene" alt="Drag Ground into Scene"></p>
+
+<p>Let's take a look at the <strong>Inspector</strong> and position the ground at <strong>(0, -2)</strong> so that everything above <strong>y=0</strong> is not part of the ground:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ground_position.png" title="ground_position" alt="Ground Position"></p>
+
+<h3>Ground Physics</h3>
+
+<p>Right now the ground is only an image, nothing more. It's not part of the physics world, things won't collide with it and can't stand on top of it. We will need to add a <strong>Collider</strong> to make it part of the physics world, which means that things will be able to stand on top of it instead of falling right through it.</p>
+
+<p>We can add a Collider to it by selecting <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Box Collider 2D</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ground_collider.png" title="ground_collider" alt="Ground Collider"></p>
+
+<h2>The invisible Borders</h2>
+
+<p>We will add three borders around the level to make sure that things won't just fall out of it. Let's select <strong>GameObject</strong>-&gt;<strong>Create Empty</strong> from the top menu and then rename it to <strong>borders</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_renamed.png" title="borders_renamed" alt="Borders renamed"></p>
+
+<p>We will set its position to <strong>(0, 0)</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_position.png" title="borders_position" alt="Borders positioned"></p>
+
+<p>Now we will add some kind of invisible area to the left, right and top of our level. And whenever something enters that area then it should simply be destroyed. This kind of behavior can be implemented with a <strong>Trigger</strong>, which is pretty much just a <strong>Collider</strong> that receives collision info but does not collide with anything.</p>
+
+<p>We can add a <strong>Trigger</strong> by selecting <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Box Collider 2D</strong> in the <strong>Inspector</strong> and then enabling the <strong>Is Trigger</strong> option. We will also adjust its size and center so it will be positioned at the left of our level:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_collider.png" title="borders_collider" alt="Borders with first Collider"></p>
+
+<p>Afterwards we can add two more triggers for the right and top sides of our level:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_collider_all.png" title="borders_collider_all" alt="Borders with all Colliders"></p>
+
+<p>If we take a look in the <strong>Scene</strong> then we can see how the Triggers are nicely aligned around our level:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_inscene.png" title="borders_inscene" alt="Borders in Scene"></p>
+
+<p>Now we still have to make sure that whatever enters the borders will be destroyed immediately. This kind of behavior can be implemented with a <strong>Script</strong>. We can add a Script to the borders by selecting <strong>Add Component</strong>-&gt;<strong>New Script</strong> in the <strong>Inspector</strong>. We will name it <strong>Borders</strong> and select <strong>CSharp</strong> as the language:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_script_create.png" title="borders_script_create" alt="Create Borders Script"></p>
+
+<p>Unity then creates a new Script, stores it in our <strong>Project Area</strong> and adds it to the borders GameObject. We can even see it in the <strong>Inspector</strong> now:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_script_inspector.png" title="borders_script_inspector" alt="Borders Script in Inspector"></p>
+
+<p>Let's also move the Script into a new <strong>Scripts</strong> folder, just to keep things clean:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/borders_script_projectarea.png" title="borders_script_projectarea" alt="Borders Script in Project Area"></p>
+
+<p>Let's double click the Script to open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Borders <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function, so let's remove them. Instead we will use the <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.OnTriggerEnter2D.html">OnTriggerEnter2D</a> function that will automatically be called by Unity whenever something enters one of the border triggers:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Borders <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnTriggerEnter2D<span style="color: #008000;">(</span>Collider2D co<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>And in this function we will simply <strong>Destroy</strong> whatever enters the Trigger:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Borders <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnTriggerEnter2D<span style="color: #008000;">(</span>Collider2D co<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>co<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>After saving the Script, our borders are finished. We will see later on that if we try to fire a bird outside of the level, it will simply disappear.</p>
+
+<h2>The Clouds</h2>
+
+<p>We will take a few extra minutes to add clouds to the background in order to make the level look better. As usual we will begin by drawing one:</p>
+
+<ul>
+<li><a href="http://noobtuts.com/content/unity/2d-angry-birds-game_PREMIUM/cloud.png">cloud.png</a><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></li>
+</ul>
+
+<p>Let's select it in the <strong>Project Area</strong> and then modify the cloud's <strong>Import Settings</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/cloud_importsettings.png" title="cloud_importsettings" alt="Cloud Import Settings"></p>
+
+<p>Now all that's left for us to do is to drag it from the <strong>Project Area</strong> into the <strong>Scene</strong> a few times and position each cloud where we want it to be:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/cloud_ingame.png" title="cloud_ingame" alt="Clouds ingame"><br>
+<em>Note: by just using a few repeating patterns and some very colors we can make the level look pretty good without much effort.</em></p>
+
+<h2>The Slingshot</h2>
+
+<h3>The Slingshot Image</h3>
+
+<p>A Slingshot will spawn new birds and allow the user to fire them into the level. As usual we will begin by drawing the sprite:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/slingshot.png" title="slingshot" alt="Slingshot"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>Here are the <strong>Import Settings</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/slingshot_importsettings.png" title="slingshot_importsettings" alt="Slingshot Import Settings"></p>
+
+<p>Later on we will create a Script that spawns a new bird at the slingshot's position, or to be exact at the slingshot's <strong>Pivot</strong>. We will want to spawn the bird at the top of the slingshot instead of the center, this is why we set the <strong>Pivot</strong> to <strong>Top</strong> in the Import Settings.</p>
+
+<p>The following image shows the difference between <strong>Center</strong> and <strong>Top</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/slingshot_pivots.png" title="slingshot_pivots" alt="Slingshot Pivots"></p>
+
+<p><em>Note: if we set the Pivot to <strong>Center</strong> then <strong>transform.position</strong> is the point at the center of the slingshot. If we set the Pivot to <strong>Top</strong>, then <strong>transform.position</strong> is the point at the top of the slingshot.</em></p>
+
+<p>Alright, now with the Pivot set to Top we can drag the Slingshot into the Scene to the position <strong>(-22, 3)</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/slingshot_positioned.png" title="slingshot_positioned" alt="Slingshot positioned"></p>
+
+<h3>The Spawn Script</h3>
+
+<p>As mentioned before, our Slingshot is supposed to spawn the birds. To be exact, it should spawn one in the beginning, then wait for the user to fire it and then spawn another one as soon as all the physics calculations are finished <em>(when nothing moves anymore)</em>.</p>
+
+<p>We can implement such behavior with Scripting. Let's select the Slingshot in the <strong>Hierarchy</strong> and then click on <strong>Add Component</strong>-&gt;<strong>New Script</strong> in the <strong>Inspector</strong>. We will name it <strong>Spawn</strong> and select <strong>CSharp</strong> as the language. Afterwards we will also put it into our <strong>Scripts</strong> folder:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/spawn_script_projectarea.png" title="spawn_script_projectarea" alt="Spawn Script in Project Area"></p>
+
+<p>We can open the Script by double clicking it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Spawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>The <strong>Start</strong> function is automatically called by Unity when starting the game. The <strong>Update</strong> function is automatically called over and over again, roughly 60 times per second. We won't need either of them so we can delete them from the Script.</p>
+
+<p>There is yet another type of <strong>Update</strong> function, it's called <strong>FixedUpdate</strong>. It's also called over and over again, but in a fixed time interval. Unity's Physics are calculated in the exact same time interval, so it's always a good idea to use <strong>FixedUpdate</strong> when doing Physics stuff <em>(which we will very soon)</em>.</p>
+
+<p>Here is the modified Script with the <strong>FixedUpdate</strong> function:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Spawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Alright let's add a variable that allows us to specify the Bird Prefab later on <em>(the bird that we want to spawn)</em>:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Spawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Bird Prefab that will be spawned</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject birdPrefab<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>And here is how we can spawn it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> spawnNext<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span> &nbsp; &nbsp; &nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn a Bird at current position with default rotation</span><br>
+&nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>birdPrefab,transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>,Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<h3>The Spawn Trigger Area</h3>
+
+<p>Now we can't just spawn one bird after another. Instead we will have to spawn one and then wait for it to be fired. There are several ways to implement this, but the easiest is to use a <strong>Trigger</strong>.</p>
+
+<p>A <strong>Trigger</strong> is simply a Collider that receives collision information but is not actually part of the physics world. So if we add a <strong>Trigger</strong> to our Slingshot then we will get notified whenever something enters that trigger, stays in that trigger or leaves that trigger. However since it's just a Trigger, things won't collide with it like they would with a normal Collider <em>(this will make more sense soon enough)</em>.</p>
+
+<p>We can add a Trigger to our slingshot by selecting it in the <strong>Hierarchy</strong> and then clicking on <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Circle Collider 2D</strong>, giving it a fitting <strong>Radius</strong> and <strong>Center</strong> and then enabling <strong>Is Trigger</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/slingshot_collider.png" title="slingshot_collider" alt="Slingshot Collider in Inspector"></p>
+
+<p>We can also see the Trigger in the <strong>Scene</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/slingshot_collider_inscene.png" title="slingshot_collider_inscene" alt="Slingshot Collider in Scene"></p>
+
+<p>After adding the Trigger, we will get notified whenever something enters <em>(OnTriggerEnter2D)</em>, stays<em>(OnTriggerStay2D)</em> or leaves<em>(OnTriggerExit2D)</em> that green circle shown above.</p>
+
+<p>Now we can easily find out if a bird was already fired or if he is still in the trigger area by creating a <strong>occupied</strong> variable and then setting it to <strong>true</strong> when spawning a bird and to <strong>false</strong> when it leaves the Trigger:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Spawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Bird Prefab that will be spawned</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject birdPrefab<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Is there a Bird in the Trigger Area?</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">bool</span> occupied <span style="color: #008000;">=</span> <span style="color: #0600FF; font-weight: bold;">false</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> spawnNext<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span> &nbsp; &nbsp; &nbsp; &nbsp;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn a Bird at current position with default rotation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>birdPrefab, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; occupied <span style="color: #008000;">=</span> <span style="color: #0600FF; font-weight: bold;">true</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnTriggerExit2D<span style="color: #008000;">(</span>Collider2D co<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Bird left the Spawn</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; occupied <span style="color: #008000;">=</span> <span style="color: #0600FF; font-weight: bold;">false</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Afterwards we can modify our <strong>FixedUpdate</strong> function so it always spawns a bird whenever the Trigger Area is not occupied anymore:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Bird not in Trigger Area anymore?</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span><span style="color: #008000;">!</span>occupied<span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; spawnNext<span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: <strong>!occupied</strong> means <strong>not occupied</strong>. We could also use <strong>if (occupied == false)</strong>.</em><p></p>
+
+<p>Our Spawn Script would work just fine now, but let's add one more feature. After shooting a bird, there will be plenty of things colliding with each other, falling down, rolling around or perhaps even exploding. In the original Angry Birds game a new bird is only spawned after all the things in the level stopped moving around.</p>
+
+<p>We can very easily create a <strong>sceneMoving</strong> function that finds out if there is any object in the Scene that is still moving more than just a bit:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">bool</span> sceneMoving<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Find all Rigidbodies, see if any is still moving a lot</span><br>
+&nbsp; &nbsp; Rigidbody2D<span style="color: #008000;">[</span><span style="color: #008000;">]</span> bodies <span style="color: #008000;">=</span> FindObjectsOfType<span style="color: #008000;">(</span><span style="color: #008000;">typeof</span><span style="color: #008000;">(</span>Rigidbody2D<span style="color: #008000;">)</span><span style="color: #008000;">)</span> <span style="color: #0600FF; font-weight: bold;">as</span> Rigidbody2D<span style="color: #008000;">[</span><span style="color: #008000;">]</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">foreach</span> <span style="color: #008000;">(</span>Rigidbody2D rb <span style="color: #0600FF; font-weight: bold;">in</span> bodies<span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>rb<span style="color: #008000;">.</span><span style="color: #0000FF;">velocity</span><span style="color: #008000;">.</span><span style="color: #0000FF;">sqrMagnitude</span> <span style="color: #008000;">&gt;</span> <span style="color: #FF0000;">5</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> <span style="color: #0600FF; font-weight: bold;">true</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> <span style="color: #0600FF; font-weight: bold;">false</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we used the <strong>FindObjectsOfType</strong> function to get all the Rigidbodies in the Scene. Afterwards we check each Rigidbody's <strong>velocity</strong>, which equals the <strong>movement direction * speed</strong>. We then calculate the velocity vector's length by using <strong>sqrMagnitude</strong> and check if it's bigger than <strong>5</strong>, in which case the object is still moving pretty fast and we <strong>return true</strong>. If none of the Rigidbodies are still moving then we <strong>return false</strong>.</em><p></p>
+
+<p>With this neat little function in our toolbox we can easily modify our <strong>FixedUpdate</strong> function so a new bird is only spawned if nothing is moving anymore:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Bird not in Trigger Area anymore? And nothing is moving?</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span><span style="color: #008000;">!</span>occupied <span style="color: #008000;">&amp;&amp;</span> <span style="color: #008000;">!</span>sceneMoving<span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; spawnNext<span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now our Spawn Script is perfect, we can even see the <strong>Bird Prefab</strong> variable in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/spawn_script_inspector.png" title="spawn_script_inspector" alt="Spawn Script in Inspector"><br>
+<em>Note: we can't test the Spawn Script without the Bird yet, but it does work just fine as we will see after creating the bird.</em></p>
+
+<h2>The Bird</h2>
+
+<h3>The Bird Image</h3>
+
+<p>Let's get to something more interesting: the Bird. We will begin by drawing a <strong>16 x 16</strong> pixel image of a bird with a big round body and some tiny wings and eyes:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird.png" title="bird" alt="Bird"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>We will use the following <strong>Import Settings</strong> for it:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_importsettings.png" title="bird_importsettings" alt="Bird Import Settings"></p>
+
+<p>Let's drag it from the <strong>Project Area</strong> into the <strong>Scene</strong> to create a GameObject from it:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_gameobject.png" title="bird_gameobject" alt="Bird GameObject"></p>
+
+<h3>Bird Physics</h3>
+
+<p>Right now the bird is just an image in the game world again. Let's make it part of the physics world by adding a <strong>Collider</strong> to it. We can add one by selecting the bird in the <strong>Hierarchy</strong> and then clicking on <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Circe Collider 2D</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_collider.png" title="bird_collider" alt="Bird Collider"></p>
+
+<p>Now there is a <strong>Physics Material 2D</strong> slot in the Collider that allows us to give the bird some special physics properties. A Physics Material will be very useful in our Unity Angry Birds Tutorial because right now if the bird would fall on the ground it would look like this:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_hitsground_nomaterial.gif" title="bird_hitsground_nomaterial" alt="Bird hits the Ground without a Physics Material"></p>
+
+<p>Which looks a bit unnatural. Instead we want the bird to bounce off things a bit like this:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_hitsground_withmaterial.gif" title="bird_hitsground_withmaterial" alt="Bird hits the Ground with a Physics Material"></p>
+
+<p>All we have to do to create the bouncing effect in the second picture is to right click in the <strong>Project Area</strong> and select <strong>Create</strong>-&gt;<strong>Physics2D Material</strong>, name it <strong>BirdMaterial</strong> and move it into a new <strong>PhysicsMaterials</strong> folder:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_material_projectarea.png" title="bird_material_projectarea" alt="Bird Physics Material in Project Area"></p>
+
+<p>Once selected we are able to modify the Material properties in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_material_inspector.png" title="bird_material_inspector" alt="Bird Physics Material in Inspector"><br>
+<em>Note: the higher the <strong>Bounciness</strong> value, the more the bird will bounce.</em></p>
+
+<p>Finally we can select the bird again and then drag the <strong>BirdMaterial</strong> from the <strong>Project Area</strong> into the Collider's <strong>Material</strong> slot:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_collider_withmaterial.png" title="bird_collider_withmaterial" alt="Bird Collider with Material"></p>
+
+<p>The bird is also supposed to move around. A Rigidbody takes care of stuff like gravity, velocity and other forces that make things move. As a rule of thumb, everything in the physics world that is supposed to move around needs a <strong>Rigidbody</strong>.</p>
+
+<p>We can add a <strong>Rigidbody</strong> to the bird by selecting <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Rigidbody 2D</strong> in the Inspector. It's important that we use exactly the same settings as shown in the following image:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_rigidbody.png" title="bird_rigidbody" alt="Bird Rigidbody in Inspector"><br>
+<em>Note: we set the <strong>Gravity Scale</strong> to <strong>4</strong> because it makes the bird fall a bit faster.</em></p>
+
+<p>If we press <strong>Play</strong> then we can now see the bird fall downwards and bounce off the ground:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_hitsground_withmaterial.gif" title="bird_hitsground_withmaterial" alt="Bird hits the Ground with a Physics Material"></p>
+
+<p>Our bird physics are finished, but there is one little adjustment that we have to make here. Right now if we would spawn the bird in the slingshot, it would fall to the ground immediately because of its Rigidbody's gravity. We only want the bird to be effected by gravity as soon as the user fired it, so let's enable <strong>Is Kinematic</strong> for now and disable it later from within a Script:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_rigidbody_kinematic.png" title="bird_rigidbody_kinematic" alt="Bird RigidBody Kinematic"></p>
+
+<p>Now the Rigidbody is kinematic, which means that it's not effected by gravity or velocity, hence it won't fall down immediately.</p>
+
+<p><em>Note: to make this more clear, anything like a hero, a car or a bird should have a Rigidbody with Is Kinematic <strong>disabled</strong>. We only <strong>enable</strong> Is Kinematic as long as the bird is still in the slingshot.</em></p>
+
+<h3>The Bird Prefab</h3>
+
+<p>As mentioned before, the bird should not be in the Scene from the beginning. Instead the slingshot should spawn a new bird when needed. In order for the slingshot to be able to spawn the bird, we will have to create a <a href="http://noobtuts.com/unity/prefabs">Prefab</a> <em>(or in other words, we have to save the Bird in our Project Area)</em>.</p>
+
+<p>All we have to do to create a prefab is drag the bird from the <strong>Hierarchy</strong> into a new <strong>Prefabs</strong> folder in the <strong>Project Area</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_createprefab.png" title="bird_createprefab" alt="Create Bird Prefab"></p>
+
+<p>Now we can load the bird into the Scene any time we want, which means that we can also delete it from the <strong>Hierarchy</strong> now:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_hierarchy_delete.png" title="bird_hierarchy_delete" alt="Delete Bird from Hierarchy"></p>
+
+<h3>Spawning the Bird</h3>
+
+<p>Let's select our slingshot in the <strong>Hierarchy</strong> and then drag the <strong>bird</strong> Prefab from the <strong>Project Area</strong> into the <strong>birdPrefab</strong> slot of our <strong>Spawn</strong> Script:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/spawn_script_inspector_withbird.png" title="spawn_script_inspector_withbird" alt="Spawn Script with Bird in Inspector"></p>
+
+<p>If we press <strong>Play</strong> then we can now see how the slingshot spawns a bird:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/slingshot_spawnsbird.png" title="slingshot_spawnsbird" alt="Slingshot spawns Bird"></p>
+
+<h3>The Pull &amp; Release Script</h3>
+
+<p>The user should be able to pull the bird around in the slingshot and then release it in order to shoot it into the wished direction.</p>
+
+<p>We will create a new <strong>C# Script</strong> and name it <strong>PullAndRelease</strong>:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> PullAndRelease <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>The user will be able to drag the bird around a circle. Every circle needs a center and in our case it's the bird's spawn position, so let's make sure to save it in a variable:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> PullAndRelease <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The default Position</span><br>
+&nbsp; &nbsp; Vector2 startPos<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; startPos <span style="color: #008000;">=</span> transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">;</span> &nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we also removed the <strong>Update</strong> function because we won't need it.</em><p></p>
+
+<p>Alright, now in order to let the user drag the bird around in a circle we will have to find out if the bird was clicked <em>(to be exact: dragged)</em>. We will also need to know if the user released the mouse, in which case we have to fire the bird towards the wished direction.</p>
+
+<p>Of course, it wouldn't be Unity if there wasn't already a function for this. Unity automatically calls the <strong>OnMouseUp</strong> and <strong>OnMouseDrag</strong> functions whenever we drag a GameObject with the mouse or release the mouse afterwards:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> PullAndRelease <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The default Position</span><br>
+&nbsp; &nbsp; Vector2 startPos<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; startPos <span style="color: #008000;">=</span> transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">;</span> &nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnMouseUp<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// ToDo: fire the Bird</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnMouseDrag<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// ToDo: move the Bird</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: a <strong>MouseDrag</strong> happens if the user holds down the mouse button over a GameObject and then moves the mouse.</em><p></p>
+
+<p>Moving the bird is really easy. All we have to do is convert the current mouse position to a point in the game world and then move the bird there. Of course, only as long as it is within a certain radius:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> OnMouseDrag<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span> &nbsp; &nbsp; &nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Convert mouse position to world position</span><br>
+&nbsp; &nbsp; Vector2 p<span style="color: #008000;">=</span> Camera<span style="color: #008000;">.</span><span style="color: #0000FF;">main</span><span style="color: #008000;">.</span><span style="color: #0000FF;">ScreenToWorldPoint</span><span style="color: #008000;">(</span>Input<span style="color: #008000;">.</span><span style="color: #0000FF;">mousePosition</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Keep it in a certain radius</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> radius <span style="color: #008000;">=</span> 1<span style="color: #008000;">.</span>8f<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; Vector2 dir <span style="color: #008000;">=</span> p <span style="color: #008000;">-</span> startPos<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>dir<span style="color: #008000;">.</span><span style="color: #0000FF;">sqrMagnitude</span> <span style="color: #008000;">&gt;</span> radius<span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; dir <span style="color: #008000;">=</span> dir<span style="color: #008000;">.</span><span style="color: #0000FF;">normalized</span> <span style="color: #008000;">*</span> radius<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Set the Position</span><br>
+&nbsp; &nbsp; transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span> <span style="color: #008000;">=</span> startPos <span style="color: #008000;">+</span> dir<span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we have to use <strong>ScreenToWorldPoint</strong> because the mouse is always somewhere between (<strong>0..width</strong>, <strong>0..height</strong>), while the game position under the mouse can be just about anything, depending on the camera position. After finding the world position <strong>p</strong>, we simply calculate the vector from <strong>startPos</strong> to <strong>p</strong>. If this vector is too long (<strong>sqrMagnitude &gt; radius</strong>) then we shorten it with <strong>dir.normalized * radius</strong>.</em><p></p>
+
+<p>Alright, let's add our Script to the Bird by selecting it in the <strong>Project Area/Prefabs</strong> folder and then clicking on <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Push And Release</strong>.</p>
+
+<p>If we press <strong>Play</strong> then we can now move the bird around a circle:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_pull.gif" title="bird_pull" alt="Bird Pull in Circle"></p>
+
+<p>Firing the bird into a direction is just as easy. We can use our <strong>OnMouseUp</strong> function to know when the mouse was released. Afterwards we will calculate the direction from the bird to the <strong>startPos</strong> and then use the <strong>rigidbody's AddForce</strong> function to fire it there:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #008080; font-style: italic;">// The Force added upon release</span><br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> force <span style="color: #008000;">=</span> <span style="color: #FF0000;">1300</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #6666cc; font-weight: bold;">void</span> OnMouseUp<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Disable isKinematic</span><br>
+&nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">isKinematic</span> <span style="color: #008000;">=</span> <span style="color: #0600FF; font-weight: bold;">false</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Add the Force</span><br>
+&nbsp; &nbsp; Vector2 dir <span style="color: #008000;">=</span> startPos <span style="color: #008000;">-</span> <span style="color: #008000;">(</span>Vector2<span style="color: #008000;">)</span>transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">AddForce</span><span style="color: #008000;">(</span>dir <span style="color: #008000;">*</span> force<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Remove the Script (not the gameObject)</span><br>
+&nbsp; &nbsp; Destroy<span style="color: #008000;">(</span><span style="color: #0600FF; font-weight: bold;">this</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: as mentioned before, we will also disable <strong>isKinematic</strong>, so that the Rigidbody is effected by gravity and velocity again. We calculated the direction by simply subtracting the current position from <strong>startPos</strong>. Finally we remove the <strong>PushAndRelease</strong> Script from the bird so it can't be fired again afterwards.</em><p></p>
+
+<p>If we press <strong>Play</strong> then we can now pull and fire the bird:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_pull_and_release.gif" title="bird_pull_and_release" alt="Bird Pull and Release"></p>
+
+<h3>The Feather Particle Effect</h3>
+
+<p>Let's make the game a bit more smooth by adding a collision effect for the bird. As soon as it hits the ground for the first time it should spawn random feathers around itself like this:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/feathers.gif" title="feathers" alt="Feathers"></p>
+
+<p>At first we will create a new Particle System by selecting <strong>GameObject</strong>-&gt;<strong>Particle System</strong> from the top menu. Afterwards we can select it in the <strong>Hierarchy</strong> and then rename it to <strong>feathers</strong> <em>(right click and select rename, or press F2)</em>.</p>
+
+<p>A Particle System is used whenever we need random particles to spawn, rotate and move into some direction. A simple example for a Particle System is smoke, where a gray texture is spawned and then moved upwards in a cone shape.</p>
+
+<p>We will modify our Particle System so instead of making the particles fly upwards, it will make them fly into all directions. We will also modify some more specific things like the size, speed and rotation. There is no right or wrong Particle System for our feathers, so feel free to just play around with it until it looks like you want it to look. Here is what we came up with:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/feathers_particlesystem.png" title="feathers_particlesystem" alt="Feathers Particle System"></p>
+
+<p>And here is the image that we used for it:</p>
+
+<ul>
+<li><a href="http://noobtuts.com/content/unity/2d-angry-birds-game_PREMIUM/feather.png">feather.png</a><br>
+<em>Note: right click on the link, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></li>
+</ul>
+
+<p>We will import it with the usual settings:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/feather_importsettings.png" title="feather_importsettings" alt="Feather Import Settings"></p>
+
+<p>Afterwards we can drag the image from the <strong>Project Area</strong> into our <strong>Particle System</strong> so it uses the image for all the particles.</p>
+
+<p>Now we can drag the <strong>feathers</strong> GameObject from the <strong>Hierarchy</strong> into the <strong>Prefabs</strong> folder in our <strong>Project Area</strong> in order to create a prefab:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/feathers_prefab.png" title="feathers_prefab" alt="Feathers Prefab in Project Area"></p>
+
+<p>Afterwards we can then delete the feathers GameObject from the <strong>Hierarchy</strong>.</p>
+
+<p>The last thing to do is to add a Script to our bird so that the feathers Particle System will be spawned in case of a collision. Let's select the bird Prefab in the <strong>Project Area</strong> and click on <strong>Add Component</strong>-&gt;<strong>New Script</strong> in the <strong>Inspector</strong>. We will name it <strong>CollisionSpawnOnce</strong> and select <strong>CSharp</strong> as the language. We will also move it into our <strong>Scripts</strong> folder again and then double click it to open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> CollisionSpawnOnce <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or <strong>Update</strong> function. Instead we will use the <strong>OnCollisionEnter2D</strong> function and a <strong>public GameObject</strong> variable for the prefab that should be spawned:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> CollisionSpawnOnce <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Whatever should be spawned (Particles etc.)</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject effect<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionEnter2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn Effect, then remove Script</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>effect,transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>,Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span><span style="color: #0600FF; font-weight: bold;">this</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: to make sure that the effect is only spawned once, we will remove the Script from the bird with <strong>Destroy(this)</strong> (which only destroys the Script, not the whole bird).</em><p></p>
+
+<p>After saving the Script, we can see the <strong>Effect</strong> variable in the <strong>Inspector</strong>. Now we can drag our <strong>feathers</strong> Particle System Prefab from the <strong>Project Area</strong> into the <strong>Effect</strong> slot:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/bird_collisionspawnonce.png" title="bird_collisionspawnonce" alt="Bird with CollisionSpawnOnce Script"></p>
+
+<p>If we press <strong>Play</strong> and fire the bird onto the ground then we can now see feathers spawning around it:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/feathers.gif" title="feathers" alt="Feathers"></p>
+
+<h3>The Trail</h3>
+
+<p>We will add yet another effect to our bird to make it look smoother: a trail of white dots that indicate the bird's trajectory:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/trail.gif" title="trail" alt="Trail"></p>
+
+<p>At first we will need a few trail images with different sizes:</p>
+
+<ul>
+<li><a href="http://noobtuts.com/content/unity/2d-angry-birds-game_PREMIUM/trail_small.png">trail_small.png</a></li>
+<li><a href="http://noobtuts.com/content/unity/2d-angry-birds-game_PREMIUM/trail_medium.png">trail_medium.png</a></li>
+<li><a href="http://noobtuts.com/content/unity/2d-angry-birds-game_PREMIUM/trail_big.png">trail_big.png</a><br>
+<em>Note: right click each link, select <strong>Save As...</strong> and save them all in the project's <strong>Assets/Sprites</strong> folder.</em></li>
+</ul>
+
+<p>We will use the same <strong>Import Settings</strong> for each image:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/trail_importsettings.png" title="trail_importsettings" alt="Trail Import Settings"></p>
+
+<p>We want to be able to spawn the trail parts whenever we want, which means that we will need a Prefab for each of them. So let's select the <strong>trail_big</strong> image and drag it into the <strong>Scene</strong> and from there back into the <strong>Prefabs</strong> folder. We will repeat this for the <strong>trail_big</strong> and <strong>trail_small</strong> images until we have 3 Prefabs:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/trail_prefabs.png" title="trail_prefabs" alt="Trail Prefabs"></p>
+
+<p>Now we just need a Script that spawns one trail element after another, every second or so. Let's create a new <strong>C# Script</strong> and name it <strong>Trail</strong>:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Trail <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We can remove the <strong>Update</strong> function because we won't need it. Let's add a <strong>public GameObject[]</strong> variable that holds all the trail elements. We will use an Array, which just means that it's more than one GameObject:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Trail <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Trail Prefabs</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject<span style="color: #008000;">[</span><span style="color: #008000;">]</span> trails<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We will also need a function that spawns the next trail. So for example it should spawn the first trail element, then next time it should spawn the second one, then the third one and then the first one again. This can be done by using <strong>Instantiate</strong> with a additional counter variable:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Trail <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Trail Prefabs</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject<span style="color: #008000;">[</span><span style="color: #008000;">]</span> trails<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">int</span> next <span style="color: #008000;">=</span> <span style="color: #FF0000;">0</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> spawnTrail<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>trails<span style="color: #008000;">[</span>next<span style="color: #008000;">]</span>, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; next <span style="color: #008000;">=</span> <span style="color: #008000;">(</span>next<span style="color: #008000;">+</span><span style="color: #FF0000;">1</span><span style="color: #008000;">)</span> <span style="color: #008000;">%</span> trails<span style="color: #008000;">.</span><span style="color: #0000FF;">Length</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+What happens is that we set <strong>next</strong> to <strong>0</strong>, which means that the first element in <strong>trails</strong> will be spawned as soon as <strong>spawnTrail</strong> is called. We then increase next by using <strong>next+1</strong>. To keep it in range of the <strong>trails</strong> array, we will also use <strong>% trails.Length</strong>, which uses the <strong>modulo</strong> <em>(%)</em> operation. For those who don't know modulo, here is a more obvious version:<p></p>
+
+<p></p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> spawnTrail<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>trails<span style="color: #008000;">[</span>next<span style="color: #008000;">]</span>, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; next <span style="color: #008000;">=</span> next <span style="color: #008000;">+</span> <span style="color: #FF0000;">1</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>next <span style="color: #008000;">==</span> trails<span style="color: #008000;">.</span><span style="color: #0000FF;">Length</span><span style="color: #008000;">)</span> next <span style="color: #008000;">=</span> <span style="color: #FF0000;">0</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now that we have a <strong>spawnTrail</strong> function we can use it to spawn a new trail element every <strong>100 ms</strong> by using the <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.InvokeRepeating.html">InvokeRepeating</a> function:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Trail <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Trail Prefabs</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject<span style="color: #008000;">[</span><span style="color: #008000;">]</span> trails<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">int</span> next <span style="color: #008000;">=</span> <span style="color: #FF0000;">0</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span> &nbsp; &nbsp;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn a new Trail every 100 ms</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; InvokeRepeating<span style="color: #008000;">(</span><span style="color: #666666;">"spawnTrail"</span>, 0<span style="color: #008000;">.</span>1f, 0<span style="color: #008000;">.</span>1f<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> spawnTrail<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>trails<span style="color: #008000;">[</span>next<span style="color: #008000;">]</span>, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; next <span style="color: #008000;">=</span> <span style="color: #008000;">(</span>next<span style="color: #008000;">+</span><span style="color: #FF0000;">1</span><span style="color: #008000;">)</span> <span style="color: #008000;">%</span> trails<span style="color: #008000;">.</span><span style="color: #0000FF;">Length</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Right now the trail elements would spawn all the time, even when the bird is not flying around. Let's add a little modification that only spawns a trail if the bird is flying fast enough:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> spawnTrail<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn Trail if moving fast enough</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>GetComponent<span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">velocity</span><span style="color: #008000;">.</span><span style="color: #0000FF;">sqrMagnitude</span> <span style="color: #008000;">&gt;</span> <span style="color: #FF0000;">25</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>trails<span style="color: #008000;">[</span>next<span style="color: #008000;">]</span>, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; next <span style="color: #008000;">=</span> <span style="color: #008000;">(</span>next<span style="color: #008000;">+</span><span style="color: #FF0000;">1</span><span style="color: #008000;">)</span> <span style="color: #008000;">%</span> trails<span style="color: #008000;">.</span><span style="color: #0000FF;">Length</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+Alright, let's save the Script and take a look at the <strong>Inspector</strong> again. Here we will drag in the three trail Prefabs from our <strong>Project Area</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/trail_script_inspector.png" title="trail_script_inspector" alt="Trail Script in Inspector"><p></p>
+
+<p>If we press <strong>Play</strong> then we can now see the trail after firing the bird:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/trail.gif" title="trail" alt="Trail"></p>
+
+<h2>The Wood Pieces</h2>
+
+<p>Let's add some structures like stones, ice and wood to our Unity 2D Angry Birds game.</p>
+
+<p>We will begin by drawing a wood piece:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/wood_big.png" title="wood_big" alt="Pixel Art Wood Big"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>Here are the <strong>Import Settings</strong> for it:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/wood_big_importsettings.png" title="wood_big_importsettings" alt="Wood Big Import Settings"></p>
+
+<p>Now we can drag it into the <strong>Scene</strong> and position it somewhere on the ground:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/wood_big_ingame.png" title="wood_big_ingame" alt="Wood Big ingame"></p>
+
+<p>The wood piece is supposed to be part of the physics world, so as always we will begin by selecting it in the <strong>Hierarchy</strong> and then clicking on <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Box Collider 2D</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/wood_big_collider.png" title="wood_big_collider" alt="Wood Big with Collider"></p>
+
+<p>The wood piece should also be able to move around. Now it won't move on its own, but it should move if the bird flies into it. It should also be effected by gravity, so what we need is a <strong>Rigidbody</strong>. We can add one by selecting <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Rigidbody 2D</strong>. We will also increase the <strong>Mass</strong> to <strong>4</strong> so it's a bit heavier:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/wood_big_rigidbody.png" title="wood_big_rigidbody" alt="Wood Big with Rigidbody"></p>
+
+<p>Now we have a piece of wood that's part of the physics world!</p>
+
+<p>We will repeat the same workflow for this slightly different wood piece:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/wood_long.png" title="wood_long" alt="Pixel Art Wood Long"></p>
+
+<p>Here is how our game looks after adding the second piece of wood and rotating the first one by 90°:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/wood_both_ingame.png" title="wood_both_ingame" alt="Both Wood Pieces ingame"></p>
+
+<h2>The Stones</h2>
+
+<p>To have a few different types of structures in our game, we will also add two different types of stones:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/stone_big.png" title="stone_big" alt="Pixel Art Big Stone"> <img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/stone_small.png" title="stone_small" alt="Pixel Art Small Stone"><br>
+<em>Note: right click each image, select <strong>Save As...</strong> and save them all in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>The workflow will be the same like before, just that this time we will use an even bigger <strong>Mass</strong> for the <strong>Rigidbody</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/stone_physics.png" title="stone_physics" alt="Stone Physics"></p>
+
+<p>Here is how our game looks with some stones in it:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/stones_ingame.png" title="stones_ingame" alt="Stones ingame"><br>
+<em>Note: yet again we achieved some decent looking visuals with basic shapes, only a few colors and dithering.</em></p>
+
+<h2>The Ice</h2>
+
+<h3>The Ice Image</h3>
+
+<p>We will add one more structure to our game: ice. This time it will be a bit more interesting though.</p>
+
+<p>As usual we will begin by drawing a piece of ice:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ice.png" title="ice" alt="Pixel Art Ice"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>The <strong>Import Settings</strong> are the same as always:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ice_importsettings.png" title="ice_importsettings" alt="Ice Import Settings"></p>
+
+<h3>Ice Physics</h3>
+
+<p>We will then drag it from the <strong>Project Area</strong> into the <strong>Scene</strong> just like we did with the stones and the wood. Now we can add physics to it:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ice_physics.png" title="ice_physics" alt="Ice Physics"></p>
+
+<p>The ice should be really slippery, so let's right click in the <strong>Project Area</strong> and select <strong>Create</strong>-&gt;<strong>Physics2D Material</strong> and name it <strong>Ice Material</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ice_material_projectarea.png" title="ice_material_projectarea" alt="Ice Material in Project Area"></p>
+
+<p>We will assign the following values in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ice_material_inspector.png" title="ice_material_inspector" alt="Ice Material in Inspector"></p>
+
+<p>Afterwards we can select the <strong>ice</strong> in the <strong>Hierarchy</strong> and then drag the ice material from the <strong>Project Area</strong> into the <strong>Collider's Material</strong> slot:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ice_withmaterial.png" title="ice_withmaterial" alt="Ice with Material"></p>
+
+<h3>Destroying Ice on Impact</h3>
+
+<p>We also want the ice to be destroyed if it was hit by enough force, because that's what ice does naturally. We can implement this feature by selecting <strong>Add Component</strong>-&gt;<strong>New Script</strong>, naming it <strong>BreakOnImpact</strong> and using <strong>CSharp</strong> as the language. We will then move it into our Scripts folder again and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BreakOnImpact <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function, so let's remove both of them. We will need a way to estimate a collision's force. We will keep it simple and multiply the speed with the mass:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">float</span> collisionForce<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Estimate a collision's force (speed * mass)</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> speed <span style="color: #008000;">=</span> coll<span style="color: #008000;">.</span><span style="color: #0000FF;">relativeVelocity</span><span style="color: #008000;">.</span><span style="color: #0000FF;">sqrMagnitude</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span><span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> speed <span style="color: #008000;">*</span> coll<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span><span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">mass</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> speed<span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: <strong>Collision2D</strong> is the info that gets passed to the <strong>OnCollisionEnter2D</strong> function. It contains the <strong>relativeVelocity</strong>, which is pretty much the direction multiplied with the speed. If we only care about the speed then we can calculate the length of that vector by using <strong>sqrMagnitude</strong>. Now if the object that caused the collision also has a <strong>Rigidbody</strong> then we will multiply the speed with the Rigidbody's <strong>mass</strong>. Otherwise we return only the speed.</em><p></p>
+
+<p>Alright, now we can use the <strong>OnCollisionEnter2D</strong> function to get notified about the collision. We will then compare the collision's force with a configurable variable. If it's bigger than that force then the ice will break:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BreakOnImpact <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> forceNeeded <span style="color: #008000;">=</span> <span style="color: #FF0000;">1000</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> collisionForce<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Estimate a collision's force (speed * mass)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> speed <span style="color: #008000;">=</span> coll<span style="color: #008000;">.</span><span style="color: #0000FF;">relativeVelocity</span><span style="color: #008000;">.</span><span style="color: #0000FF;">sqrMagnitude</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span><span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> speed <span style="color: #008000;">*</span> coll<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span><span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">mass</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> speed<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionEnter2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>collisionForce<span style="color: #008000;">(</span>coll<span style="color: #008000;">)</span> <span style="color: #008000;">&gt;=</span> forceNeeded<span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>gameObject<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>If we save the Script, press <strong>Play</strong> and fire the bird into the ice then it will now break:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/ice_breaking.gif" title="ice_breaking" alt="Ice breaking"></p>
+
+<p>Now we can take a few minutes to duplicate the structures and position them on top of each other so we can add the pigs inbetween them later:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/structures_positioned.png" title="structures_positioned" alt="Structures Positioned"></p>
+
+<h2>The Green Pigs</h2>
+
+<p>The birds want to destroy all the pigs, so let's add some pigs to our game so the birds don't get bored.</p>
+
+<p>We will begin by drawing one:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/pig.png" title="pig" alt="Pixel Art Pig"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>We used the following <strong>Import Settings</strong> for our pig:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/pig_importsettings.png" title="pig_importsettings" alt="Pig Import Settings"></p>
+
+<p>Afterwards we can drag it from the <strong>Project Area</strong> into the <strong>Scene</strong> and then select <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Circle Collider 2D</strong> and <strong>Rigidbody 2D</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/pig_physics.png" title="pig_physics" alt="Pig Physics in Inspector"></p>
+
+<p>The pigs are supposed to die if a huge enough force hits them. Luckily for us, we already have a Script for this. So let's select <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Break On Impact</strong> and assign a low <strong>Force Needed</strong> value to it:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/pig_breakonimpact_inspector.png" title="pig_breakonimpact_inspector" alt="Pig with Break on Impact Script in Inspector"><br>
+<em>Note: being able to re-use Scripts like this is what makes component based development so awesome.</em></p>
+
+<p>Now we can duplicate the pig and move it in-between some structures:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/pigs_positioned.png" title="pigs_positioned" alt="Pigs Positioned in between Structures"></p>
+
+<p>If we press <strong>Play</strong> then we can now try to destroy the pigs:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/pigs_ingame.gif" title="pigs_ingame" alt="Pigs ingame"></p>
+
+<h2>The Rubber</h2>
+
+<p>We will add one last feature to our game: a rubber for the slingshot, so dragging and releasing the birds will look much better:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_ingame.gif" title="rubber_ingame" alt="Rubber ingame"></p>
+
+<p>We will begin by drawing one half of a rubber, which is pretty much just a thick line:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber.png" title="rubber" alt="Pixel Art Rubber"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>Here are the <strong>Import Settings</strong>:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_importsettings.png" title="rubber_importsettings" alt="Rubber Import Settings"><br>
+<em>Note: this time we set the <strong>Pivot</strong> to <strong>Right</strong> to make some rotations easier later on.</em></p>
+
+<p>Now we can drag it from the <strong>Project Area</strong> into the <strong>Scene</strong> twice, name one of it <strong>leftRubber</strong>, the other one <strong>rightRubber</strong> and position them at the upper parts of our slingshot:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_positioned.png" title="rubber_positioned" alt="Rubber positioned"></p>
+
+<p>We want to make sure that the left one is always drawn <strong>behind</strong> the slingshot and the right one is always drawn in <strong>front</strong> of it. We could add two more <strong>Sorting Layers</strong> to our game, but we will keep it simple and just change the <strong>Order in Layer</strong> to <strong>-1</strong> for the left rubber and to <strong>1</strong> for the right rubber:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_left_order_inspector.png" title="rubber_left_order_inspector" alt="Left Rubber Order in Inspector"></p>
+
+<p><img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_right_order_inspector.png" title="rubber_right_order_inspector" alt="Right Rubber Order in Inspector"></p>
+
+<p>Now the rubber looks like it's on the <em>outside</em> of the slingshot:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_order_inscene.png" title="rubber_order_inscene" alt="Rubber Order in Scene"></p>
+
+<p>Before we start Scripting, let's select the two rubber GameObjects in the <strong>Hierarchy</strong> and then move them <strong>into</strong> the <strong>slingshot</strong> GameObject so they are its children:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_child_of_slingshot.png" title="rubber_child_of_slingshot" alt="Rubber child of Slingshot"><br>
+<em>Note: now whenever we move the slingshot, the rubber parts will move with it.</em></p>
+
+<p>Let's create a new <strong>C# Script</strong> and name it <strong>Rubber</strong>:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Rubber <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>The purpose of this Script is to make the two rubber parts follow the bird until it leaves the spawn's trigger circle.</p>
+
+<p>We will need two variables that let us specify the rubbers later on. We won't need the <strong>Start</strong> or the <strong>Update</strong> function:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Rubber <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Rubber objects</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Transform leftRubber<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Transform rightRubber<span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now the slightly more complicated part. We will need a function that positions the right end of the rubber on the slingshot and the left end on the bird. There is no Unity function for this yet, so we will have to first rotate the rubber into the bird's direction and then make the rubber longer or shorter depending on how far away the bird is:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> adjustRubber<span style="color: #008000;">(</span>Transform bird, Transform rubber<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Rotation</span><br>
+&nbsp; &nbsp; Vector2 dir <span style="color: #008000;">=</span> rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span> <span style="color: #008000;">-</span> bird<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> angle <span style="color: #008000;">=</span> Mathf<span style="color: #008000;">.</span><span style="color: #0000FF;">Atan2</span><span style="color: #008000;">(</span>dir<span style="color: #008000;">.</span><span style="color: #0000FF;">y</span>, dir<span style="color: #008000;">.</span><span style="color: #0000FF;">x</span><span style="color: #008000;">)</span> <span style="color: #008000;">*</span> Mathf<span style="color: #008000;">.</span><span style="color: #0000FF;">Rad2Deg</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">rotation</span> <span style="color: #008000;">=</span> Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">AngleAxis</span><span style="color: #008000;">(</span>angle, Vector3<span style="color: #008000;">.</span><span style="color: #0000FF;">forward</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Length</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> dist <span style="color: #008000;">=</span> Vector3<span style="color: #008000;">.</span><span style="color: #0000FF;">Distance</span><span style="color: #008000;">(</span>bird<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; dist <span style="color: #008000;">+=</span> bird<span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Collider2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">bounds</span><span style="color: #008000;">.</span><span style="color: #0000FF;">extents</span><span style="color: #008000;">.</span><span style="color: #0000FF;">x</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">localScale</span> <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span>dist, <span style="color: #FF0000;">1</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: at first we calculate the <strong>dir</strong>ection from the rubber to the bird. Then we calculate the angle of this direction. Afterwards we set the rubber's <strong>rotation</strong> to that angle by using <strong>Quaternion.AngleAxis</strong>. Finally we use basic vector math to calculate the <strong>dist</strong>ance between the rubber and the bird. Afterwards we set the horizontal scale to that distance (plus half the width of the bird, which is <strong>bounds.extents.x</strong>).</em><p></p>
+
+<p>The <strong>OnTriggerStay2D</strong> function will notify us whenever the bird changes its position while it is still in the slingshot. We can use this function to adjust the left and right rubber:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Rubber <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Rubber objects</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Transform leftRubber<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Transform rightRubber<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> adjustRubber<span style="color: #008000;">(</span>Transform bird, Transform rubber<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Rotation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Vector2 dir <span style="color: #008000;">=</span> rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span> <span style="color: #008000;">-</span> bird<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> angle <span style="color: #008000;">=</span> Mathf<span style="color: #008000;">.</span><span style="color: #0000FF;">Atan2</span><span style="color: #008000;">(</span>dir<span style="color: #008000;">.</span><span style="color: #0000FF;">y</span>, dir<span style="color: #008000;">.</span><span style="color: #0000FF;">x</span><span style="color: #008000;">)</span> <span style="color: #008000;">*</span> Mathf<span style="color: #008000;">.</span><span style="color: #0000FF;">Rad2Deg</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">rotation</span> <span style="color: #008000;">=</span> Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">AngleAxis</span><span style="color: #008000;">(</span>angle, Vector3<span style="color: #008000;">.</span><span style="color: #0000FF;">forward</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Length</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> dist <span style="color: #008000;">=</span> Vector3<span style="color: #008000;">.</span><span style="color: #0000FF;">Distance</span><span style="color: #008000;">(</span>bird<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; dist <span style="color: #008000;">+=</span> bird<span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Collider2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">bounds</span><span style="color: #008000;">.</span><span style="color: #0000FF;">extents</span><span style="color: #008000;">.</span><span style="color: #0000FF;">x</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; rubber<span style="color: #008000;">.</span><span style="color: #0000FF;">localScale</span> <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span>dist, <span style="color: #FF0000;">1</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnTriggerStay2D<span style="color: #008000;">(</span>Collider2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Stretch the Rubber between bird and slingshot</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; adjustRubber<span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">transform</span>, leftRubber<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; adjustRubber<span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">transform</span>, rightRubber<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Almost done. We will add one more mechanic that makes the rubber shorter after firing the bird:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> OnTriggerExit2D<span style="color: #008000;">(</span>Collider2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Make the Rubber shorter</span><br>
+&nbsp; &nbsp; leftRubber<span style="color: #008000;">.</span><span style="color: #0000FF;">localScale</span> <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span><span style="color: #FF0000;">0</span>, <span style="color: #FF0000;">1</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; rightRubber<span style="color: #008000;">.</span><span style="color: #0000FF;">localScale</span> <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span><span style="color: #FF0000;">0</span>, <span style="color: #FF0000;">1</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now we can add the Script to our slingshot by first selecting the <strong>slingshot</strong> GameObject in the <strong>Hierarchy</strong> and then clicking on <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Rubber</strong>. We will also drag the two rubbers into their corresponding slots:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_script_inspector.png" title="rubber_script_inspector" alt="Rubber Script in Inspector"></p>
+
+<p>If we press <strong>Play</strong> then we can now see the rubber stretch between bird and slingshot:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/rubber_ingame.gif" title="rubber_ingame" alt="Rubber ingame"></p>
+
+<p>Of course, now we can also play a round of Angry Birds:<br>
+<img src="./noobtuts - Unity 2D Angry Birds Tutorial_files/unity_angrybirds.gif" title="unity_angrybirds" alt="Unity Angry Birds"></p>
+
+<h2>Summary</h2>
+
+<p>We just created a nice little Angry Birds clone in Unity. There was a whole lot of stuff to learn. We used simple shapes and colors to achieve a nice visual effect. We made extensive use of Unity's 2D Physics system and added a whole lot of effects to our bird.</p>
+
+<p>All these little tricks like breakable ice, a bird that spawns feathers when it collides with something and a trail that marks the trajectory are what makes the game feel right later on. This is why it's so important to keep the game small and focus on each little detail to make the game feel right.</p>
+
+    
+      </article>
+</section>
+
+  <footer>
+    <p>© 2012-2015 <a href="http://noobtuts.com/">noobtuts.com</a></p>
+  </footer>
+
+
+
+</body></html>
