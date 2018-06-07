@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://noobtuts.com/unity/2d-plants-vs-zombies-game_PREMIUM -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>noobtuts - Unity 2D Plants vs. Zombies Tutorial</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+  <meta name="description" content="noobtuts.com - Talk to me like I&#39;m five!">
+  <meta name="keywords" content="noobtuts, gamedevelopment, tutorials, make a game">
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="http://noobtuts.com/assets/styles/styles.css">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-36008404-2', 'noobtuts.com');
+    ga('send', 'pageview');  
+  </script><style type="text/css"></style>
+</head>
+
+<body>
+  <header>
+    <h1><a href="http://noobtuts.com/"><img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/logo.png" alt="noobtuts"></a></h1>
+  </header><!-- vis2k: nav not working in older IE versions
+<nav class="menu">
+-->
+<div id="menu">
+  <ul>
+        <li><a href="http://noobtuts.com/">Tutorials</a></li>
+        <li><a href="http://noobtuts.com/articles">Articles</a></li>
+        <li><a href="http://noobtuts.com/premium">Premium</a></li>
+        <li><a href="http://noobtuts.com/about">About</a></li>
+      </ul>
+</div>
+<!-- vis2k: nav not working in older IE versions
+</nav>
+-->
+
+<section class="content">
+
+  <article>
+    <h1>Unity 2D Plants vs. Zombies Tutorial</h1>
+    <p><img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/unity_plants_vs_zombies.png" title="unity_plants_vs_zombies" alt="Unity Plants vs. Zombies"></p>
+
+<p>Today we will make a <a href="http://en.wikipedia.org/wiki/Plants_vs._Zombies" rel="noreferrer">Plants vs. Zombies</a> clone with Unity's 2D features. To keep things simple, we will ignore all the fancy things like the menu, multiple levels or cut-scenes and focus on fighting Zombies in the backyard. The Tutorial will be really long and detailed, but the end result will be less than 130 lines of code!</p>
+
+<p>Here is a preview of the game:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/unity_plants_vs_zombies.gif" title="unity_plants_vs_zombies" alt="Unity Plants vs. Zombies"></p>
+
+<h2>Requirements</h2>
+
+<h3>Knowledge</h3>
+
+<p>This Tutorial does not require any advanced knowledge. A basic understanding of the Unity engine is still required. Feel free to read our easier <a href="http://noobtuts.com/unity">Unity Tutorials</a> like <a href="http://noobtuts.com/unity/2d-pong-game">Unity 2D Pong Game</a> to get used to the engine.</p>
+
+<h3>Unity Version</h3>
+
+<p>We will use <strong>Unity 5.0.1f1</strong> in this Tutorial. Newer versions should work fine as well, older versions may or may not work. The free version of Unity 5 now comes with all the engine features, which makes it the recommended version.</p>
+
+<h2>Project Setup</h2>
+
+<p>Let's start working on the game. We will start Unity and select <strong>New Project</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/new_project.png" title="new_project" alt="Unity New Project"></p>
+
+<p>We will name it <strong>plants</strong>, select any location like <strong>C:\</strong>, select <strong>2D</strong> and click <strong>Create Project</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/project_wizard_create_2d.png" title="project_wizard_create_2d" alt="Unity Create new 2D Project"></p>
+
+<p>If we select the <strong>Main Camera</strong> in the <strong>Hierarchy</strong> then we can set the <strong>Background Color</strong> to black, adjust the <strong>Size</strong> and the <strong>Position</strong> like shown in the following image:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/camera_properties.png" title="camera_properties" alt="Camera Properties"></p>
+
+<h2>Creating the Grass</h2>
+
+<p>We will use a tool like <a href="http://noobtuts.com/getpaint.net">Paint.NET</a> or Photoshop to create a grass tile:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass.png" title="grass" alt="Grass Tiles"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong>, navigate to the project's <strong>Assets</strong> folder and save it in a new <strong>Sprites</strong> folder.</em></p>
+
+<p>Let's select the grass tile in the <strong>Project Area</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_projectarea.png" title="grass_projectarea" alt="Grass in Project Area"></p>
+
+<p>And then modify the <strong>Import Settings</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_importsettings.png" title="grass_importsettings" alt="Grass Import Settings"><br>
+<em>Note: a <strong>Pixels to Unit</strong> value of <strong>32</strong> means that 32 x 32 pixels will fit into one unit in the game world. We will use this value for all our textures.</em></p>
+
+<p>Afterwards we can add the image to the game by dragging it from the <strong>Project Area</strong> into the <strong>Scene</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_into_scene.png" title="grass_into_scene" alt="Drag Grass into Scene"></p>
+
+<p>We will position it at <strong>(0, 0)</strong> so it's at the bottom left of our game:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_position.png" title="grass_position" alt="Grass Position in Inspector"></p>
+
+<h3>Adding a Sorting Layer</h3>
+
+<p>We are making a 2D game, so we can't use the third dimension as depth effect, or to distinguish between background and foreground easily. Instead we will use a <strong>Sorting Layer</strong> to tell Unity which elements it should draw first. For example, our background should be drawn first and the plants should be drawn afterwards <em>(hence on top of the background)</em>.</p>
+
+<p>We can change the grass <strong>Sorting Layer</strong> if we take a look at the Sprite Renderer component in the Inspector:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_spriterenderer_defaultlayer.png" title="grass_spriterenderer_defaultlayer" alt="Grass SpriteRenderer with default Sorting Layer"></p>
+
+<p>Let's select <strong>Add Sorting Layer..</strong> from the <strong>Sorting Layer</strong> list, add a <strong>Background</strong> layer and move it to the top like shown below:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sortinglayer_add_background.png" title="sortinglayer_add_background" alt="Add Background Sorting Layer"></p>
+
+<p>Afterwards we select the grass again and assign the previously created <strong>Background</strong> Sorting Layer:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_spriterenderer_backgroundlayer.png" title="grass_spriterenderer_backgroundlayer" alt="Grass SpriteRenderer with Background Sorting Layer"><br>
+<em>Note: Unity draws the layers from top to bottom, hence whatever should be in the background will be at the top of the list.</em></p>
+
+<p>Now the grass will always be drawn behind the plants and the zombies.</p>
+
+<h3>Making the Grass clickable</h3>
+
+<p>Later on when working on the build menu we will need a way to find out if a grass tile was clicked. There are all kinds of different ways to do this in Unity, but the easiest one is to just use the <strong>OnMouseUpAsButton</strong> function that is automatically called by Unity if the grass was clicked.</p>
+
+<p>Now there is one thing to keep in mind here: Unity only does this if the GameObject has a Collider. So let's select <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Box Collider 2D</strong> in the <strong>Inspector</strong> and enable the <strong>Is Trigger</strong> option:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_with_collider.png" title="grass_with_collider" alt="Grass with Collider"><br>
+<em>Note: enabling <strong>Is Trigger</strong> means that the grass will receive all kinds of collision information, but things won't actually collide with. So if a Zombie walks into a grass tile, it won't collide with it.</em></p>
+
+<h3>Duplicating the Grass</h3>
+
+<p>Right now we only have one grass tile in our game. Let's right click it in the <strong>Hierarchy</strong>, select <strong>Duplicate</strong> and then position it at <strong>(1, 0)</strong>. Then we will duplicate it again and position it at <strong>(2, 0)</strong>. We will keep duplicating it until we have <strong>10 * 5</strong> grass tiles where the bottom-left tile is at <strong>(0, 0)</strong> and the top-right tile is at <strong>(9, 4)</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/grass_duplicated.png" title="grass_duplicated" alt="Duplicated Grass Tiles"><br>
+<em>Note: it's important that all the tiles have rounded positions like <strong>(2, 3)</strong> and never <strong>(2.01, 3.023)</strong>.</em></p>
+
+<h2>The Health Script</h2>
+
+<p>The Zombies should be able to attack the Plants, and the Firing Plant should be able to deal damage to the Zombies. We will stick with Unity's component based nature and create only one <strong>Health</strong> script for all entities.</p>
+
+<p>We can create a new Script by right clicking in the <strong>Project Area</strong> and then selecting <strong>Create</strong>-&gt;<strong>C# Script</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/create_script.png" title="create_script" alt="Create Script"></p>
+
+<p>We will name it <strong>Health</strong> and then move it into a new <strong>Scripts</strong> folder:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/health_script_projectarea.png" title="health_script_projectarea" alt="Health Script in Project Area"></p>
+
+<p>We can open and then modify the Script by double clicking it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Health <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function, so let's remove both of them. Instead we will add a <strong>int</strong> variable that keeps track of the current health and add a function that decreases that variable. If the current health drops below <strong>0</strong> then the entity should be destroyed:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Health <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Current Health</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">[</span>SerializeField<span style="color: #008000;">]</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">int</span> cur <span style="color: #008000;">=</span> <span style="color: #FF0000;">5</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">void</span> doDamage<span style="color: #008000;">(</span><span style="color: #6666cc; font-weight: bold;">int</span> n<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Subtract damage from current health</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; cur <span style="color: #008000;">-=</span> n<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Destroy if died</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>cur <span style="color: #008000;">&lt;=</span> <span style="color: #FF0000;">0</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>gameObject<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we used <strong>SerializeField</strong> to let Unity know that we want to be able to modify the <strong>cur</strong> variable in the <strong>Inspector</strong>. Usually this is done by making it <strong>public</strong>, but in this case we don't want other Scripts to be able to access the <strong>cur</strong> variable. Instead they should always use the <strong>doDamage</strong> function.</em><p></p>
+
+<p>The Script will be added to all Plants and Zombies later on.</p>
+
+<h2>Creating a Sunflower Plant</h2>
+
+<h3>Drawing the Animation</h3>
+
+<p>Since we are developing a 2D game, animations are very easy to make with our drawing tool of choice and a few hours of time.</p>
+
+<p>For our sunflower we will only need an idle animation where its head slightly moves. Here is what we came up with:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower.png" title="sunflower" alt="Pixel Art Sunflower Plant"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>Let's select the sunflower image in the <strong>Project Area</strong> and then modify the <strong>Import Settings</strong> in the Inspector:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_importsettings.png" title="sunflower_importsettings" alt="Sunflower ImportSettings"></p>
+
+<p>The <strong>Filter Mode</strong> and <strong>Format</strong> influence the looks. Setting the <strong>Sprite Mode</strong> to <strong>Multiple</strong> tells Unity that there are several sunflower parts <em>(also known as <strong>Tiles</strong>)</em> in one image.</p>
+
+<h3>Importing the Animation</h3>
+
+<p>Now we have to tell Unity where those tiles are in the image. We can open the <strong>Sprite Editor</strong> by pressing the <strong>Sprite Editor</strong> button in the Inspector <em>(it can be seen in the above image)</em>.</p>
+
+<p>Afterwards we can see our Sunflower in the Sprite Editor:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_spriteeditor.png" title="sunflower_spriteeditor" alt="Sunflower in Sprite Editor"></p>
+
+<p>All we have to do here is open the <strong>Slice</strong> menu, set the type to <strong>Grid</strong> and the pixel size to <strong>32 x 32</strong>. Afterwards we press the <strong>Slice</strong> button:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_spriteeditor_slice.png" title="sunflower_spriteeditor_slice" alt="Sunflower Sprite Editor Slicing"></p>
+
+<p>Let's press <strong>Apply</strong> and then close the Sprite Editor.</p>
+
+<p>If we take a look in the <strong>Project Area</strong> then we can see that our Sunflower now has 2 children <em>(the slices)</em>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_projectarea_slices.png" title="sunflower_projectarea_slices" alt="Sunflower Project Area Slices"></p>
+
+<h3>Creating the Animation</h3>
+
+<p>Creating a Unity Animation from those 2 slices is incredibly easy. All we have to do is select them in the <strong>Project Area</strong> and then drag them right into the Scene:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_create_animation.png" title="sunflower_create_animation" alt="Create Sunflower Animation"></p>
+
+<p>Once we drag it into the scene, Unity asks us where to save the Animation. We can create a new <strong>SunflowerAnimation</strong> folder in our Project Area and then save it as <strong>idle.anim</strong>.</p>
+
+<p>Unity then creates two files for us:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_animation_files.png" title="sunflower_animation_files" alt="Sunflower Animation Files"></p>
+
+<p>This is what our animation looks like if we press <strong>Play</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_animated.gif" title="sunflower_animated" alt="Animated Sunflower"><br>
+<em>Note: we can modify the animation speed by double clicking the <strong>sunflower_0</strong> file in the <strong>SunflowerAnimation</strong> folder, selecting the <strong>idle</strong> state and then changing the <strong>speed</strong> in the <strong>Inspector</strong>.</em></p>
+
+<h3>Physics, Tags and Health</h3>
+
+<p>Our plant should be part of the physics world, which means that we have to assign a <strong>Collider</strong> to it. A <strong>Collider</strong> makes sure that things will collide with the plant and that the plant will collide with other things.</p>
+
+<p>Let's select the plant and then press <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Box Collider 2D</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/plants_collider.png" title="plants_collider" alt="Plants Collider"></p>
+
+<p>We will also need to find out if a certain GameObject is a Plant, a Zombie or something completely different. This is what Unity's <strong>Tag</strong> system is for. If we take a look in the <strong>Inspector</strong>, we can see that the current tag is <strong>Untagged</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/plants_untagged.png" title="plants_untagged" alt="Plants untagged"></p>
+
+<p>We can assign the <strong>Plant</strong> tag by selecting <strong>Add Tag...</strong> in the Tag list, then adding the <strong>Plant</strong> tag to the list of available tags, selecting the plant again and then assigning the Tag from the Tag list:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/plants_tagged.png" title="plants_tagged" alt="Plants Tagged"></p>
+
+<p>Finally we will select <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Health</strong> in the Inspector, so the Zombies can deal damage to the plant later on:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/health_inspector.png" title="health_inspector" alt="Health Script in Inspector"></p>
+
+<p><em>Note: our Sunflower was just placed somewhere randomly in the Scene. We will keep it in there for now as long as we are working on the sun spawns in the next step. Proper positioning on a grass tile will be implemented later on.</em></p>
+
+<h2>Spawning Suns</h2>
+
+<h3>Drawing the Sun</h3>
+
+<p>The Sunflower plant is supposed to spawn a new sun every few seconds, so let's start by drawing one:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun.png" title="sun" alt="Pixel Art Sun"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>We will use the following <strong>Import Settings</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_importsettings.png" title="sun_importsettings" alt="Sun ImportSettings"></p>
+
+<h3>The Foreground Layer</h3>
+
+<p>We want the sun to be drawn in front of the background and in front of the plants. Let's click on <strong>Add Sorting Layer..</strong> again and create another <strong>Sorting Layer</strong>, name it <strong>Foreground</strong> and move it to the bottom of the list:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sortinglayer_add_foreground.png" title="sortinglayer_add_foreground" alt="Add Foreground Sorting Layer"></p>
+
+<p>Afterwards we can select the sun again and assign the <strong>Foreground</strong> Sorting Layer to it:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_sortinglayer.png" title="sun_sortinglayer" alt="Sun Sorting Layer"></p>
+
+<h3>Creating the Prefab</h3>
+
+<p>Let's drag the sun into the <strong>Hierarchy</strong> <em>(or into the Scene)</em> once in order to create a GameObject from our texture:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_gameobject.png" title="sun_gameobject" alt="Creating the Sun GameObject"></p>
+
+<p>Now we take a look at the <strong>Inspector</strong> where we rename it to <strong>SunPrefab</strong> and press the <strong>Add Component</strong> button where we select <strong>Physics 2D</strong>-&gt;<strong>Circle Collider 2D</strong>. A Collider allows us to do some physics stuff with the Sun later on:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_inspector.png" title="sun_inspector" alt="Sun Prefab in Inspector"></p>
+
+<p><em>Note: In the original Plants vs. Zombies game the Sun doesn't really collide with the plants or the zombies. We can achieve this behavior by selecting <strong>Is Trigger</strong> in the Circle Collider 2D. This means that the sun receives collision information, but never really collides with anything. The zombies will be able to walk right through it, instead of colliding with it.</em></p>
+
+<p>Afterwards we drag it from the <strong>Hierarchy</strong> into a new <strong>Prefabs</strong> folder in the <strong>Project Area</strong> to create a <a href="http://noobtuts.com/unity/prefabs">Prefab</a>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_createprefab.png" title="sun_createprefab" alt="Create Sun Prefab"></p>
+
+<p>Now we can delete it from the <strong>Hierarchy</strong>.</p>
+
+<p><em>Note: the sun will later be loaded into the Scene by using the <strong>Instantiate</strong> function. We can't just use the Sun Texture because we really do need a GameObject with Colliders and everything.</em></p>
+
+<h3>Creating the Spawn Script</h3>
+
+<p>We want the sunflower to spawn a new sun every few seconds. This kind of behavior can be implemented with Scripting. Let's select our sunflower and then click on <strong>Add Component</strong>-&gt;<strong>New Script</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/new_script.png" title="new_script" alt="New Script"></p>
+
+<p>We will name it <strong>SunSpawn</strong>, select <strong>CSharp</strong> as the language and then move it into our Scripts folder in the Project Area. Afterwards we will open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> SunSpawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We will add a public GameObject variable that allows us to specify the Prefab later on in the Inspector:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> SunSpawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject prefab<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">...</span></span></code></pre><p></p>
+
+<p>The <a href="http://docs.unity3d.com/ScriptReference/Object.Instantiate.html">Instantiate</a> function allows us to load a Prefab into the Scene. The <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.InvokeRepeating.html">InvokeRepeating</a> function allows us to call a certain function repeatedly, starting at some time in the future. For example, if we would want to spawn something the first time in 1 second and then repeat that every 2 seconds, we would use <strong>InvokeRepeating("Spawn", 1, 2)</strong>. We want the first sun to be spawned in 10 seconds and then keep spawning more suns every 10 seconds, so here is our code:</p>
+
+<p></p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> SunSpawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject prefab<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn first Sun in 10 seconds, repeat every 10 seconds</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; InvokeRepeating<span style="color: #008000;">(</span><span style="color: #666666;">"Spawn"</span>, <span style="color: #FF0000;">10</span>, <span style="color: #FF0000;">10</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Spawn<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Load prefab into the Scene</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// -&gt; transform.position means current position</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// -&gt; Quaternion.identity means default rotation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>prefab,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now we can save the Script and take a look at the <strong>Inspector</strong> again. The Script has a <strong>Prefab</strong> property because our <strong>prefab</strong> variable was public. Let's drag our <strong>SunPrefab</strong> from the Project Area into the <strong>Prefab</strong> slot of the Script:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_sunspawn_script_prefab.png" title="sunflower_sunspawn_script_prefab" alt="Sunflower SunSpawn Script Prefab"></p>
+
+<p>If we press <strong>Play</strong> then we can see a new Sun spawn every 10 seconds.</p>
+
+<h3>Sun Movement</h3>
+
+<p>After a sun spawned it should slowly fade away towards the top of the screen. We will use a <strong>Rigidbody2D</strong> for that. A Rigidbody is usually used for everything in the physics world that is supposed to move around.</p>
+
+<p>Let's select the sun in the <strong>Project Area</strong> and then click on <strong>Add Component</strong>-&gt;<strong>Physics2D</strong>-&gt;<strong>Rigidbody2D</strong> in the Inspector. We will assign the following properties to it:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_rigidbody.png" title="sun_rigidbody" alt="Sun Rigidbody"></p>
+
+<p>Now all we have to do is give the Rigidbody some velocity <em>(which is <strong>movement direction * speed</strong>)</em>. The following image shows the different vectors needed for certain movement directions:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/vector2_directions.png" title="vector2_directions" alt="Vector3 Directions"></p>
+
+<p>We will create another C# Script, name it <strong>DefaultVelocity</strong> and then use it to set the velocity all the time:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> DefaultVelocity <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Velocity (can be set from Inspector)</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Vector2 velocity<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">velocity</span> <span style="color: #008000;">=</span> velocity<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we set it in each <strong>FixedUpdate</strong> call so that whatever has this script attached to it will try to keep moving no matter what happens. This is useful for the Zombies that might not be able to keep moving when running into a plant, but our Script will make sure that they start moving again as soon as the plant was destroyed.</em><p></p>
+
+<p>Afterwards we select the sun prefab again and then add the Script to it by clicking on <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Default Velocity</strong>. We will also assign a velocity that goes <strong>upwards</strong> <em>(into the <strong>y</strong> direction)</em>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_defaultvelocity.png" title="sun_defaultvelocity" alt="Sun DefaultVelocity Script"></p>
+
+<p>If we press <strong>Play</strong> then we can now see the sun spawn and move upwards afterwards:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sun_movingupwards.gif" title="sun_movingupwards" alt="Sun moving upwards"></p>
+
+<h3>Collecting Sun</h3>
+
+<p>The last thing we have to do when it comes to the sun is to allow the player to collect it. We will need one global score that keeps track of how many suns were collected, and we will need to increase that score whenever the player clicks on a sun.</p>
+
+<p>Unity comes with a <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.OnMouseDown.html">OnMouseDown</a> function that allows us to find out if our GameObject was clicked. So let's create a new <strong>C# Script</strong>, name it <strong>SunCollect</strong> and then use the <strong>OnMouseDown</strong> function:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> SunCollect <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Global score</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #0600FF; font-weight: bold;">static</span> <span style="color: #6666cc; font-weight: bold;">int</span> score <span style="color: #008000;">=</span> <span style="color: #FF0000;">100</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnMouseDown<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Increase Score</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; score <span style="color: #008000;">+=</span> <span style="color: #FF0000;">20</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Destroy Sun</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>gameObject<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p><em>Note: we have to use <strong>static</strong> in order to make the score variable global. This means that it can be accessed by other scripts with <strong>SunCollect.score</strong> any time. The initial score value is 100 so the player has some sun to start building plants with.</em></p>
+
+<p>Once we added the Script to the sun Prefab we can press <strong>Play</strong>, wait for a sun to spawn and then collect it by clicking on it.</p>
+
+<h3>Cleaning Up the Hierarchy</h3>
+
+<p>Right now the Sunflower is still in the Hierarchy, but we don't want it to be in there from the beginning. The player is supposed to build it manually later on. So let's create a Prefab from it by dragging it into the <strong>Project Area</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/sunflower_prefab.png" title="sunflower_prefab" alt="Sunflower Prefab"></p>
+
+<h2>The Firing Plant</h2>
+
+<h3>The Image</h3>
+
+<p>Alright let's create one more plant, the type that is able to shoot at the Zombies. As usual we will begin by drawing all the animations. The two slices at the top are the idle animation, the two slices at the bottom are the firing animation:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant.png" title="firingplant" alt="Firing Plant Pixel Art"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>We will use the following <strong>Import Settings</strong> for our firing plant:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_importsettings.png" title="firingplant_importsettings" alt="Firing Plant ImportSettings"></p>
+
+<p>Let's click on the <strong>Slice Editor</strong> button and then slice it with the following settings:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_spriteeditor.png" title="firingplant_spriteeditor" alt="Firing Plant Slice Settings"></p>
+
+<h3>Creating the Animations</h3>
+
+<p>This time we have two animations in our image. The first two slices are the idle animation and the last two slices are the firing animation.</p>
+
+<p>The idle animation can be created by selecting the first two slices in the <strong>Project Area</strong> and dragging them into the scene:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_createanim_idle.png" title="firingplant_createanim_idle" alt="Firing Plant Create Idle Animation"></p>
+
+<p>When Unity asks us where to save it, we name it <strong>idle.anim</strong> and save it in a new folder like <strong>FiringplantAnimation</strong> inside our Project Area.</p>
+
+<p>It works the same way for the firing animation <em>(the last two slices)</em>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_createanim_firing.png" title="firingplant_createanim_firing" alt="Firing Plant Create Firing Animation"></p>
+
+<p>If we press <strong>Play</strong> then we can see our two animations in the game:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_animated_both.gif" title="firingplant_animated_both" alt="Firing Plant both Animations"></p>
+
+<p><em>Note: they are still two different GameObjects, but we will take care of that soon.</em></p>
+
+<h3>Cleaning up after Unity</h3>
+
+<p>Every time we drag slices into the scene, Unity creates an animation and a controller in our Project Area, and adds an animated GameObject to the Hierarchy. Right now we have 2 controllers and 2 GameObjects, but we only need one of each so let's delete the <strong>firingplant_2</strong> controller from the Project Area:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_deleted_controller.png" title="firingplant_deleted_controller" alt="Firing Plant Deleted Controller"></p>
+
+<p>And then we delete the <strong>firingplant_2</strong> GameObject from the Hierarchy:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_deleted_gameobject.png" title="firingplant_deleted_gameobject" alt="Firing Plant Deleted GameObject"></p>
+
+<h3>Modifying the Controller</h3>
+
+<p>There is a trick to get both animations into one GameObject, it's called a <strong>animation state machine</strong>. We can see our Firing Plant's current state machine by double clicking the controller <strong>firingplant_0</strong> in the Project Area:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_animator_idle.png" title="firingplant_animator_idle" alt="FiringPlant Animator with Idle State"></p>
+
+<p>Right now all we see is the <strong>idle</strong> state. This is why we only see the <strong>firing</strong> animation when we press <strong>Play</strong>. If we want it to play the <strong>firing</strong> animation at some point, then we will have to create a state for it, too. We can do this by simply dragging the <strong>firing</strong> animation from the <strong>Project Area</strong> into the <strong>Animator</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_animator_bothstates.png" title="firingplant_animator_bothstates" alt="Firing Plant Animator with both States"></p>
+
+<p>We need some kind of Parameter that helps Unity to decide when to go to the firing state. We will select the <strong>Parameters</strong> tab and then click the <strong>+</strong> on the right, add a Parameter of type <strong>Trigger</strong> and name it <strong>IsFiring</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_animator_parameter.png" title="firingplant_animator_parameter" alt="Firing Plant Animator with Parameter"><br>
+<em>Note: A Trigger is a Paramater that just fires once. We will set this parameter from within a Script later on.</em></p>
+
+<p>So far so good. Now we just have to tell Unity to go to the <strong>firing</strong> state when the <strong>IsFiring</strong> Parameter is triggered. Let's right click the <strong>idle</strong> state, select <strong>Make Transition</strong> and then drag the white Arrow onto the <strong>firing</strong> state:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_animator_firsttransition.png" title="firingplant_animator_firsttransition" alt="Firing Plant Animator with first Transition"></p>
+
+<p>Afterwards we select the new <strong>Transition</strong> <em>(the white arrow)</em> and take a look in the Inspector. We will disable the <strong>Has Exit Time</strong> property and give it the Condition <strong>IsFiring</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/condition_isfiring.png" title="condition_isfiring" alt="IsFiring Condition"><br>
+<em>Note: we disabled <strong>Has Exit Time</strong> because the Transition shouldn't happen after a certain time automatically.</em></p>
+
+<p>Now we add one more transition from <strong>firing</strong> to <strong>idle</strong>. This time we will keep the <strong>Has Exit Time</strong> enabled because we want the animation state machine to switch back from <strong>firing</strong> to <strong>idle</strong> after one second. We will also set the <strong>Exit Time</strong> to <strong>1</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/condition_exittime_1.png" title="condition_exittime_1" alt="Condition with Exit Time 1"></p>
+
+<p>And here is our final state machine:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firingplant_animator_final.png" title="firingplant_animator_final" alt="Firing Plant final Animator State Machine"></p>
+
+<p><em>Note: the animator will automatically switch between the <strong>idle</strong> and <strong>firing</strong> animations now. It will play them and loop them fully automatically, all we have to do is set the <strong>IsFiring</strong> parameter from a Script.</em></p>
+
+<h3>Physics and Tags</h3>
+
+<p>We will also add a <strong>Box Collider 2D</strong> to the plant:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/plants_collider.png" title="plants_collider" alt="Plants Collider"></p>
+
+<p>And assign the <strong>Plant</strong> tag to it so we can find out what type it is later on:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/plants_tagged.png" title="plants_tagged" alt="Plants Tagged"></p>
+
+<p>Finally we will select <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Health</strong> in the Inspector, so that the Zombies can deal damage to the plant later on:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/health_inspector.png" title="health_inspector" alt="Health Script in Inspector"></p>
+
+<h2>Giving the Plant something to Shoot</h2>
+
+<h3>Drawing the Bullet</h3>
+
+<p>We will use the a 16 x 16 px texture for a bullet:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/bullet.png" title="bullet" alt="Plants Bullet"><br>
+<em>Note: right click the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>With the following <strong>Import Settings</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/bullet_importsettings.png" title="bullet_importsettings" alt="Bullet Import Settings"></p>
+
+<h3>Creating the Bullet Prefab</h3>
+
+<p>Now we have to create a Prefab from it again. Therefore we will drag the bullet texture into the <strong>Scene</strong> once <em>(which creates a GameObject)</em> and then drag it back into the <strong>Project Area</strong>, which creates a Prefab:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/bullet_prefab.png" title="bullet_prefab" alt="Bullet Prefab"></p>
+
+<p>Afterwards we can delete it from the Hierarchy again.</p>
+
+<h3>Adding Physics to the Bullet</h3>
+
+<p>Our bullet is supposed to fly towards the right side of the screen and collide with Zombies if necessary. So let's select it in the <strong>Project Area</strong> and then click on <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong> where we add a <strong>Circle Collider 2D</strong> and a <strong>Rigidbody 2D</strong> with the following properties:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/bullet_collider_and_rigidbody.png" title="bullet_collider_and_rigidbody" alt="Bullet Collider and Rigidbody"><br>
+<em>Note: we enabled <strong>Is Trigger</strong> so the bullet will fly through plants instead of colliding with them.</em></p>
+
+<h3>Letting it fly</h3>
+
+<p>The bullet should fly towards the right as soon as it was Instantiated. We already have a Script that makes something move into a direction by using the Rigidbody's <strong>velocity</strong>. So let's select <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>DefaultVelocity</strong> and assign a velocity that makes it fly towards the right:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/bullet_defaultvelocity.png" title="bullet_defaultvelocity" alt="Bullet with Default Velocity Script"><br>
+<em>Note: this is the beauty of component based development. We can write a Script once and then re-use it for all kinds of entities in our game.</em></p>
+
+<h3>Dealing Damage on Collision</h3>
+
+<p>To check for collisions we will make use of Unity's <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.OnTriggerEnter2D.html">OnTriggerEnter2D</a> function that will be called as soon as the bullet flies into another GameObject, in which case we will check if it was a Zombie <em>(by comparing the tag)</em> and then decrease its health.</p>
+
+<p>Let's create a new <strong>C# Script</strong>, name it <strong>BulletDamage</strong> and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BulletDamage <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function. Instead we will use the <strong>OnTriggerEnter2D</strong> function as explained above. We don't really know what the Zombie will look like yet, but we do know that we will add "Zombie" <strong>Tag</strong> and a <strong>Health</strong> component to it. So let's just work with that:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BulletDamage <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnTriggerEnter2D<span style="color: #008000;">(</span>Collider2D co<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Zombie?</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>co<span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Zombie"</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Deal Damage, destroy Bullet</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; co<span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Health<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">doDamage</span><span style="color: #008000;">(</span><span style="color: #FF0000;">1</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>gameObject<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we used <strong>GetComponent</strong> to find the <strong>Health</strong> component on the Zombie. We then deal damage by calling the <strong>doDamage</strong> function. Afterwards we remove the bullet from the game by using <strong>Destroy</strong>.</em><p></p>
+
+<p>We can add the Script to the bullet Prefab by selecting <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Bullet Damage</strong> in the Inspector:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/bulletdamage_script_inspector.png" title="bulletdamage_script_inspector" alt="Bullet Damage Script in Inspector"></p>
+
+<h2>Shooting the Bullets</h2>
+
+<p>Now that we have a bullet, we can make our Firing Plant shoot it whenever it sees a Zombie. Let's select <strong>Add Component</strong>-&gt;<strong>New Script</strong> in the <strong>Inspector</strong>. We will name it <strong>Firing</strong>, select <strong>CSharp</strong> as the language, move it into our Scripts folder and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Firing <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>First of all we will have to find out if there are any Zombies at the right of the plant. We can do this by using the <a href="http://docs.unity3d.com/ScriptReference/Physics2D.RaycastAll.html">RaycastAll</a> function. A Raycast shoots a ray through the world and finds out if it hit anything. So if we shoot a ray from the very right of the screen towards the Plant and if it collides with something that has the tag "Zombie" then the plant should be firing.</p>
+
+<p>Here is our function for it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">bool</span> zombieInFront<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Raycast from the right of the game to the plant</span><br>
+&nbsp; &nbsp; Vector2 origin <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span>9<span style="color: #008000;">.</span>5f, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">.</span><span style="color: #0000FF;">y</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; RaycastHit2D<span style="color: #008000;">[</span><span style="color: #008000;">]</span> hits <span style="color: #008000;">=</span> Physics2D<span style="color: #008000;">.</span><span style="color: #0000FF;">RaycastAll</span><span style="color: #008000;">(</span>origin, <span style="color: #008000;">-</span>Vector2<span style="color: #008000;">.</span><span style="color: #0000FF;">right</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Find out if any Zombie was hit</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">foreach</span> <span style="color: #008000;">(</span>RaycastHit2D hit <span style="color: #0600FF; font-weight: bold;">in</span> hits<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>hit<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span> <span style="color: #008000;">!=</span> <span style="color: #0600FF; font-weight: bold;">null</span> <span style="color: #008000;">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hit<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span><span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Zombie"</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> <span style="color: #0600FF; font-weight: bold;">true</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> <span style="color: #0600FF; font-weight: bold;">false</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: the <strong>RaycastAll</strong> function simply returns <strong>all</strong> the hits instead of just the first one like the <strong>Raycast</strong> function would do. We could also shoot a Ray from the Plant towards the right of the screen. But this way it makes more sense because we won't run into trouble if we add a Collider to the plant, in which case the Ray would just hit the plant itself. We used <strong>-Vector2.right</strong> for the direction because it's the left direction. We used the vector <strong>(9.5f, pos.y)</strong> as the Raycast's position because this is the right border of the grass at the height of the plant.</em><p></p>
+
+<p>We will also need a public Prefab variable again, which will be set to the <strong>bullet Prefab</strong> in the Inspector later:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Firing <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Bullet Prefab</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject bulletPrefab<span style="color: #008000;">;</span> &nbsp; &nbsp;<br>
+&nbsp; &nbsp; <span style="color: #008000;">...</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now we can write our <strong>Shoot</strong> function that uses <strong>Instantiate</strong> to spawn the bullet and sets the <strong>IsFiring</strong> parameter in our animation state machine whenever it sees a zombie:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> Shoot<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>zombieInFront<span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Animation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Animator<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">SetTrigger</span><span style="color: #008000;">(</span><span style="color: #666666;">"IsFiring"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Instantiate Bullet</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>bulletPrefab, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Here is how it looks if we put it all together:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Firing <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Bullet Prefab</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject bulletPrefab<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Shooting Interval</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> interval <span style="color: #008000;">=</span> 0<span style="color: #008000;">.</span>5f<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Try to shoot every few seconds</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; InvokeRepeating<span style="color: #008000;">(</span><span style="color: #666666;">"Shoot"</span>, <span style="color: #FF0000;">0</span>, interval<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">bool</span> zombieInFront<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Raycast from the right of the game to the plant</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Vector2 origin <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span>9<span style="color: #008000;">.</span>5f, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span><span style="color: #008000;">.</span><span style="color: #0000FF;">y</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; RaycastHit2D<span style="color: #008000;">[</span><span style="color: #008000;">]</span> hits <span style="color: #008000;">=</span> Physics2D<span style="color: #008000;">.</span><span style="color: #0000FF;">RaycastAll</span><span style="color: #008000;">(</span>origin, <span style="color: #008000;">-</span>Vector2<span style="color: #008000;">.</span><span style="color: #0000FF;">right</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Find out if any Zombie was hit</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">foreach</span> <span style="color: #008000;">(</span>RaycastHit2D hit <span style="color: #0600FF; font-weight: bold;">in</span> hits<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>hit<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span> <span style="color: #008000;">!=</span> <span style="color: #0600FF; font-weight: bold;">null</span> <span style="color: #008000;">&amp;&amp;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hit<span style="color: #008000;">.</span><span style="color: #0000FF;">collider</span><span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Zombie"</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> <span style="color: #0600FF; font-weight: bold;">true</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">return</span> <span style="color: #0600FF; font-weight: bold;">false</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Shoot<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>zombieInFront<span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Animation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Animator<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">SetTrigger</span><span style="color: #008000;">(</span><span style="color: #666666;">"IsFiring"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Instantiate Bullet</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>bulletPrefab, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: the Shoot function is called every few seconds thanks to <strong>InvokeRepeating</strong>.</em><p></p>
+
+<p>If we save the Script and take a look at the <strong>Inspector</strong> then we can drag the bullet Prefab from the Project Area into the <strong>Prefab</strong> slot:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/firing_script_inspector.png" title="firing_script_inspector" alt="Firing Script in Inspector"><br>
+<em>Note: we will be able to try out the firing mechanics as soon as we added Zombies.</em></p>
+
+<p>We don't have a <strong>firingplant Prefab</strong> yet, so let's select the Firing Plant in our <strong>Hierarchy</strong>, drag it into our <strong>Prefabs</strong> folder and then delete it from the Hierarchy.</p>
+
+<h2>The Build Menu</h2>
+
+<p>Here is a preview of our build menu at work:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildmenu_working.gif" title="buildmenu_working" alt="Build Menu used to build a plant"></p>
+
+<p>We will now implement every single feature that is needed to create the menu. We will see that thanks to the powerful Unity engine, it's really easy to do.</p>
+
+<h3>The Build Info Component</h3>
+
+<p>Our Build Menu will need the price and a little preview image for each plant. Now that kind of data has to be stored somewhere. The most elegant way to do this is to store it in each plant prefab.</p>
+
+<p>Let's select our two plant prefabs and then click on <strong>Add Component</strong>-&gt;<strong>New Script</strong>, name it <strong>BuildInfo</strong>, select <strong>CSharp</strong> as the language, move it into our Scripts folder and then open it. We will give it the previously mentioned properties:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BuildInfo <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Texture previewImage<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">int</span> price<span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We will use the following preview images:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildmenu_sunflower.png" title="buildmenu_sunflower" alt="Buildmenu Sunflower"> <img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildmenu_firingplant.png" title="buildmenu_firingplant" alt="Buildmenu Firingplant"><br>
+<em>Note: right click each image, select <strong>Save As...</strong> and save them in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>Here are the <strong>Import Settings</strong> for both images:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildinfo_plants_importsettings.png" title="buildinfo_plants_importsettings" alt="BuildInfo Import Settings for both Plants"></p>
+
+<p>Afterwards we will select our plant prefabs one after another and then assign the following settings to the <strong>Build Info</strong> Scripts:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildinfo_sunflower.png" title="buildinfo_sunflower" alt="BuildInfo Sunflower"><br>
+<em>The Sunflower</em></p>
+
+<p><img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildinfo_firingplant.png" title="buildinfo_firingplant" alt="BuildInfo Firing Plant"><br>
+<em>The Firing Plant</em></p>
+
+<h3>Drawing the BuildMenu</h3>
+
+<p>In order to show the menu ingame, we will use the <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.OnGUI.html">OnGUI</a> function to:</p>
+
+<ul>
+<li>draw the sun and the sun score</li>
+<li>for each plant:<br>
+<br>
+<ul>
+<li>draw the plant image and the sun price</li>
+</ul></li>
+</ul>
+
+<p>Please take a look at our <a href="http://noobtuts.com/unity/guis">Unity GUIs</a> Tutorial in order to understand how Unity's GUIs and GUILayouts work. But don't worry, as usual they are ridiculously easy and really powerful. Our GUI code will do the following:</p>
+
+<ul>
+<li>Begin a <strong>GUILayout</strong> at the top center</li>
+<li>Begin a <strong>Horizontal Area</strong> <em>(with Box style)</em><br>
+<br>
+<ul>
+<li>Draw the <strong>Sun</strong> Image and the <strong>CollectSun.score</strong></li>
+<li>For each Plant:<br>
+<br>
+<ul>
+<li>Draw a Button with the <strong>previewImage</strong> and the <strong>Price</strong></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>One thing to remember is that by default a <a href="http://docs.unity3d.com/ScriptReference/GUILayout.Button.html">GUILayout.Button</a> can only have an image or a text, never both. But since we want it to show the previewImage and the price, we will have to use an additional <a href="http://docs.unity3d.com/ScriptReference/GUIContent.html">GUIContent</a>, which is capable of showing both.</p>
+
+<p>We will begin by selecting our <strong>Main Camera</strong> and then clicking on <strong>Add Component</strong>-&gt;<strong>New Script</strong> in the <strong>Inspector</strong>. We will name it <strong>BuildMenu</strong>, select <strong>CSharp</strong> as the language, move it into our Scripts folder and then open it.<br>
+<em>Note: Our Build Menu Script is only <strong>GUI</strong> stuff, hence why we can add it to anything that we want. We added it to the Main Camera because it will always be there.</em></p>
+
+<p>Here is our <strong>BuildMenu</strong> script:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BuildMenu <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Sun Image</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Texture sunImage<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Plant Prefabs</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> BuildInfo<span style="color: #008000;">[</span><span style="color: #008000;">]</span> plants<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnGUI<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Begin Gui</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">BeginArea</span><span style="color: #008000;">(</span><span style="color: #008000;">new</span> Rect<span style="color: #008000;">(</span>Screen<span style="color: #008000;">.</span><span style="color: #0000FF;">width</span><span style="color: #008000;">/</span><span style="color: #FF0000;">2</span> <span style="color: #008000;">-</span> <span style="color: #FF0000;">100</span>, <span style="color: #008000;">-</span><span style="color: #FF0000;">7</span>, <span style="color: #FF0000;">200</span>, <span style="color: #FF0000;">100</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">BeginHorizontal</span><span style="color: #008000;">(</span><span style="color: #666666;">"box"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Draw the Sun</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">Box</span><span style="color: #008000;">(</span><span style="color: #008000;">new</span> GUIContent<span style="color: #008000;">(</span>SunCollect<span style="color: #008000;">.</span><span style="color: #0000FF;">score</span><span style="color: #008000;">.</span><span style="color: #0000FF;">ToString</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span>, sunImage<span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Draw each Plant's BuildInfo</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">foreach</span> <span style="color: #008000;">(</span>BuildInfo bi <span style="color: #0600FF; font-weight: bold;">in</span> plants<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">Button</span><span style="color: #008000;">(</span><span style="color: #008000;">new</span> GUIContent<span style="color: #008000;">(</span>bi<span style="color: #008000;">.</span><span style="color: #0000FF;">price</span><span style="color: #008000;">.</span><span style="color: #0000FF;">ToString</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span>, bi<span style="color: #008000;">.</span><span style="color: #0000FF;">previewImage</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// End Gui</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">EndHorizontal</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">EndArea</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: the plant Prefabs are an array (hence <strong>[ ]</strong>). It means that it's not just one but a whole bunch of them.</em><p></p>
+
+<p>After saving the Script we will drag our sun image and the plant Prefabs from our <strong>Project Area</strong> into the Script's slots:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildmenu_inspector.png" title="buildmenu_inspector" alt="Build Menu in Inspector"></p>
+
+<p>If we press <strong>Play</strong> then we can already see our Build Menu:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildmenu_ingame.png" title="buildmenu_ingame" alt="Build Menu ingame"></p>
+
+<h3>Enabling and Disabling the Buttons</h3>
+
+<p>Now there are a few more things to implement here. First of all, each button should only be enabled if the player collected enough sun to pay for it. This can be done very easily by using <strong>GUI.enabled</strong>:</p>
+
+<p></p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #008080; font-style: italic;">// Draw each Plant's BuildInfo</span><br>
+<span style="color: #0600FF; font-weight: bold;">foreach</span> <span style="color: #008000;">(</span>BuildInfo bi <span style="color: #0600FF; font-weight: bold;">in</span> plants<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; GUI<span style="color: #008000;">.</span><span style="color: #0000FF;">enabled</span> <span style="color: #008000;">=</span> SunCollect<span style="color: #008000;">.</span><span style="color: #0000FF;">score</span> <span style="color: #008000;">&gt;=</span> bi<span style="color: #008000;">.</span><span style="color: #0000FF;">price</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">Button</span><span style="color: #008000;">(</span><span style="color: #008000;">new</span> GUIContent<span style="color: #008000;">(</span>bi<span style="color: #008000;">.</span><span style="color: #0000FF;">price</span><span style="color: #008000;">.</span><span style="color: #0000FF;">ToString</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span>, bi<span style="color: #008000;">.</span><span style="color: #0000FF;">previewImage</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p><em>Note: this assigns a boolean value (true or false) to <strong>GUI.enabled</strong>. The boolean value is calculated by testing if the <strong>SunCollect.score</strong> is bigger than the plant's price.</em></p>
+
+<p>If we press Play then we can see our Buttons being disabled unless we have enough sun:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildmenu_ingame_disabledbuttons.png" title="buildmenu_ingame_disabledbuttons" alt="BuildMenu ingame with disabled Buttons"></p>
+
+<h3>Building the Plant</h3>
+
+<p>Let's take care of the most important part: building a plant. The player should first click the plant button in the build menu and then click on a grass tile. Afterwards the plant should be built on that grass tile.</p>
+
+<p>So first of all we will need to keep track of the plant that the player wants to build:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #008080; font-style: italic;">// Currently building...</span><br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #0600FF; font-weight: bold;">static</span> BuildInfo cur<span style="color: #008000;">;</span></span></code></pre><br>
+<em>Note: it's <strong>public static</strong> because we want to be able to access it from another Script later on.</em><p></p>
+
+<p>And as soon as the player clicks on a button we will set the <strong>cur</strong> variable to the plant that the player wants to build:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #008080; font-style: italic;">// Draw each Plant's BuildInfo</span><br>
+<span style="color: #0600FF; font-weight: bold;">foreach</span> <span style="color: #008000;">(</span>BuildInfo bi <span style="color: #0600FF; font-weight: bold;">in</span> plants<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; GUI<span style="color: #008000;">.</span><span style="color: #0000FF;">enabled</span> <span style="color: #008000;">=</span> SunCollect<span style="color: #008000;">.</span><span style="color: #0000FF;">score</span> <span style="color: #008000;">&gt;=</span> bi<span style="color: #008000;">.</span><span style="color: #0000FF;">price</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>GUILayout<span style="color: #008000;">.</span><span style="color: #0000FF;">Button</span><span style="color: #008000;">(</span><span style="color: #008000;">new</span> GUIContent<span style="color: #008000;">(</span>bi<span style="color: #008000;">.</span><span style="color: #0000FF;">price</span><span style="color: #008000;">.</span><span style="color: #0000FF;">ToString</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span>, bi<span style="color: #008000;">.</span><span style="color: #0000FF;">previewImage</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; cur <span style="color: #008000;">=</span> bi<span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<h3>The Grass Tile Script</h3>
+
+<p>Now we will have to wait for the player to click on a grass tile. And if he clicked on one then we want to build the <strong>BuildInfo.cur</strong> plant. Let's select all the grass tiles in the Scene and then click on <strong>Add Component</strong>-&gt;<strong>New Script</strong> in the <strong>Inspector</strong>. We will name it <strong>Grass</strong>, select <strong>CSharp</strong> as the language, move it into our Scripts folder again and then open it. We will use the <strong>OnMouseUpAsButton</strong> function to find out if a grass tile was clicked:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Grass <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnMouseUpAsButton<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Build Stuff</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now we will find out if there is something to build, and if so we will build it and make the player pay the price:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Grass <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnMouseUpAsButton<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Is there something to build?</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>BuildMenu<span style="color: #008000;">.</span><span style="color: #0000FF;">cur</span> <span style="color: #008000;">!=</span> <span style="color: #0600FF; font-weight: bold;">null</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Build it</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>BuildMenu<span style="color: #008000;">.</span><span style="color: #0000FF;">cur</span><span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span>, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SunCollect<span style="color: #008000;">.</span><span style="color: #0000FF;">score</span> <span style="color: #008000;">-=</span> BuildMenu<span style="color: #008000;">.</span><span style="color: #0000FF;">cur</span><span style="color: #008000;">.</span><span style="color: #0000FF;">price</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BuildMenu<span style="color: #008000;">.</span><span style="color: #0000FF;">cur</span> <span style="color: #008000;">=</span> <span style="color: #0600FF; font-weight: bold;">null</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we can access the BuildMenu's <strong>cur</strong> variable from anywhere by using <strong>BuildMenu.cur</strong>. This works because it's <strong>public static</strong>. We load the plant into the game by using <strong>Instantiate</strong> at the grass tile's position (transform.position) with the default rotation (Quaternion.identity). Afterwards we clear the <strong>cur</strong> variable because we are done building.</em><p></p>
+
+<p>If we press <strong>Play</strong> then we can now build some plants:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/buildmenu_working.gif" title="buildmenu_working" alt="Build Menu used to build a plant"></p>
+
+<p>What we saw here was the full power of the Unity engine. With only a few lines of code we were able to solve the relatively hard problem of creating a build menu that works for arbitrary amounts of plants. It's perfectly fast, it's perfectly robust, it's fun to use and if we wanted to, we could even add a <a href="http://noobtuts.com/unity/gui-skins">Skin</a> to it to make it look completely different.</p>
+
+<p>If we were crazy enough to try this from scratch and without a game engine then we would easily end up with a few thousand lines of code.</p>
+
+<h2>Zombies</h2>
+
+<h3>Drawing the Zombie</h3>
+
+<p>Now the part that we have all been waiting for: <strong>Z o m b i e s</strong>!</p>
+
+<p>As usual we will begin by drawing one image that contains all the animation frames. The first row contains the walking animation, the second row contains the attack animation:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie.png" title="zombie" alt="Zombie"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>We will use the following <strong>Import Settings</strong>:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_importsettings.png" title="zombie_importsettings" alt="Zombie ImportSettings"></p>
+
+<p>The image will be sliced as a <strong>32 x 32</strong> Grid:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_slicing.png" title="zombie_slicing" alt="Zombie Slicing"></p>
+
+<h3>Extracting the Zombie Animations</h3>
+
+<p>Let's create the <strong>moving</strong> animation by selecting the first 4 slices and dragging them into the scene:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_slices_moving.png" title="zombie_slices_moving" alt="Zombie Slices for moving"></p>
+
+<p>We will save it as <strong>moving.anim</strong> in a new <strong>ZombieAnimation</strong> folder.</p>
+
+<p>The next two slices will be the <strong>attacking</strong> animation:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_slices_attacking.png" title="zombie_slices_attacking" alt="Zombie Slices for attacking"></p>
+
+<p>Which we will save as <strong>attacking.anim</strong> in the <strong>ZombieAnimation</strong> folder.</p>
+
+<p>If we press <strong>Play</strong> then we can see our two animations:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_animations_all.gif" title="zombie_animations_all" alt="All Zombie Animations"></p>
+
+<h3>Cleaning up after Unity</h3>
+
+<p>As usual we will have to clean up after Unity by deleting the <strong>zombie_4</strong> GameObject from the <strong>Hierarchy</strong> and the <strong>zombie_4</strong> Controller from the <strong>ZombieAnimation</strong> folder.</p>
+
+<h3>The Zombie Animation State Machine</h3>
+
+<p>We already know our away around the <strong>Animator</strong> now, so this time we are able to create the state machine without much worrying:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_animator.png" title="zombie_animator" alt="Zombie Animator"></p>
+
+<p>The Parameter is:</p>
+
+<ul>
+<li><strong>IsAttacking</strong> of type <strong>Trigger</strong> <em>(only fires once)</em></li>
+</ul>
+
+<p>The Transitions are:</p>
+
+<ul>
+<li>moving to attacking:  <strong>= IsAttacking</strong></li>
+<li>attacking to moving:  <strong>= Exit Time 1.0</strong></li>
+</ul>
+
+<p>Which means that as soon as we say <strong>IsAttacking</strong>, the animation state machine will play the <strong>attacking</strong> animation for one second. Afterwards it will go back to <strong>moving</strong> automatically.</p>
+
+<h3>Zombie Physics</h3>
+
+<p>Our Zombie should be part of the physics world, which means that it will need a <strong>BoxCollider2D</strong>. It should also move around, which means that it needs a <strong>Rigidbody2D</strong> too:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_physics.png" title="zombie_physics" alt="Zombie Physics"></p>
+
+<h3>The Zombie Movement</h3>
+
+<p>The Zombie should walk towards the left at all times. Of course, we can just use our <strong>DefaultVelocity</strong> Script once more. We can add it to the Zombie by selecting <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Default Velocity</strong> and then assigning a velocity that makes it slowly walk to the left:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_defaultvelocity.png" title="zombie_defaultvelocity" alt="Zombie with DefaultVelocity Script"></p>
+
+<h3>The Zombie Attack Script</h3>
+
+<p>As soon as the Zombie collides with a plant, it should start attacking it once a second. If the Zombie didn't attack anything for more than a second.</p>
+
+<p>Let's select <strong>Add Component</strong>-&gt;<strong>New Script</strong> in the <strong>Inspector</strong>. We will name it <strong>ZombieAttacking</strong>, select <strong>CSharp</strong> as the language, move it into our Scripts folder and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> ZombieAttacking <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function. Instead we can use Unity's <a href="http://docs.unity3d.com/ScriptReference/Collider2D.OnCollisionStay2D.html">OnCollisionStay2D</a> function which will keep notifying us as long as the Zombie collides with the plant:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> ZombieAttacking <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionStay2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Collided with a Plant?</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Plant"</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Do Stuff...</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>The Zombie should play the attack animation when standing in front of a plant:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionStay2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Collided with a Plant?</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Plant"</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Play Attack Animation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Animator<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">SetTrigger</span><span style="color: #008000;">(</span><span style="color: #666666;">"IsAttacking"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>It should also deal damage to the plant, but only once a second:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> ZombieAttacking <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Last Attack Time</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> last <span style="color: #008000;">=</span> <span style="color: #FF0000;">0</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionStay2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Collided with a Plant?</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Plant"</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Play Attack Animation</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Animator<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">SetTrigger</span><span style="color: #008000;">(</span><span style="color: #666666;">"IsAttacking"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Deal damage once a second</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>Time<span style="color: #008000;">.</span><span style="color: #0000FF;">time</span> <span style="color: #008000;">-</span> last <span style="color: #008000;">&gt;=</span> <span style="color: #FF0000;">1</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Health<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">doDamage</span><span style="color: #008000;">(</span><span style="color: #FF0000;">1</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; last <span style="color: #008000;">=</span> Time<span style="color: #008000;">.</span><span style="color: #0000FF;">time</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>And that's all there is to it. We simply used <strong>Time.time</strong> to find out how much time was elapsed since <strong>last</strong> time, then get access to the plant's <strong>Health</strong> Script, call the <strong>doDamage</strong> function and reset the <strong>last</strong> time.</p>
+
+<p>Remember how we checked for the <strong>Zombie</strong> tag in the Firing and Bullet Scripts? Let's add the <strong>Zombie</strong> tag to our Zombie to make sure that it can be shot by the bullet:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_tag.png" title="zombie_tag" alt="Zombie Tag"></p>
+
+<p>We will also add a <strong>Health</strong> Script to it:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_health.png" title="zombie_health" alt="Zombie with Health Script"></p>
+
+<p>If we press <strong>Play</strong> and build a Sunflower then we can see how the Zombie will try to attack it as soon as it reaches it. If we build a Firing Plant then we can see how it kills the Zombie after a few shots!</p>
+
+<p>We will also duplicate the Zombie by right clicking it in the <strong>Hierarchy</strong> and then selecting <strong>Duplicate</strong>. We will repeat this a few times and them position the zombies on the right of the level so that they reach it only after a few seconds of walking:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/zombie_duplicated.png" title="zombie_duplicated" alt="Zombie duplicated"></p>
+
+<p>If we press <strong>Play</strong> then we can see the game in action:<br>
+<img src="./noobtuts - Unity 2D Plants vs. Zombies Tutorial_files/unity_plants_vs_zombies.gif" title="unity_plants_vs_zombies" alt="Unity Plants vs. Zombies"></p>
+
+<h2>Summary</h2>
+
+<p>We just created a clean and simple Plants vs. Zombies Clone in Unity. The Tutorial was rather long, but there are still lots of features and improvements that could be added to the game. As usual, now is the time for you to get a coffee and make the game fun!</p>
+
+    
+      </article>
+</section>
+
+  <footer>
+    <p>© 2012-2015 <a href="http://noobtuts.com/">noobtuts.com</a></p>
+  </footer>
+
+
+
+</body></html>
